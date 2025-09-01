@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Capstone-PetBnb.iml" filepath="$PROJECT_DIR$/.idea/Capstone-PetBnb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Backend/petbnb.iml" filepath="$PROJECT_DIR$/Backend/petbnb.iml" />
     </modules>
   </component>
 </project>
