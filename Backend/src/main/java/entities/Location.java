@@ -61,6 +61,7 @@ public class Location {
         this.prezzoPerNotte = prezzoPerNotte;
     }
 
+
     @Override
     public String toString() {
         return "Location{" +
