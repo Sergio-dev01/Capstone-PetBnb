@@ -1,0 +1,74 @@
+🐾 PetBnB
+
+PetBnB è una piattaforma web pensata per aiutare i proprietari di animali domestici a trovare facilmente strutture o host dove lasciare il proprio animale durante le vacanze o le trasferte, proprio come un Airbnb... ma per animali!
+
+---------------------
+
+🚀 Descrizione del Progetto
+
+PetBnB permette agli utenti (clienti) di:
+- Registrarsi e accedere alla piattaforma in modo sicuro
+- Visualizzare un elenco di località disponibili pubblicate dagli host
+- Prenotare un soggiorno per il proprio animale domestico
+
+Gli host (nella versione successiva) potranno:
+- Registrarsi come struttura ospitante
+- Pubblicare le proprie località
+
+---------------------
+
+💡 Funzionalità principali divise in rilasci
+
+v1. Core Features ⇒ Autenticazione, visualizzazione località e prenotazione
+
+La prima versione deve includere le funzionalità fondamentali per permettere agli utenti di registrarsi, autenticarsi, vedere le strutture disponibili e prenotare un soggiorno per il proprio animale.
+
+v2. Features A, B, C ⇒ Registrazione e profilo cliente, pagina dettagli struttura
+
+La seconda versione aggiunge la registrazione completa del cliente, un’area profilo personale e la pagina con i dettagli specifici della struttura/host (es. descrizione, servizi, recensioni).
+
+v3. Features D, E, F ⇒ Registrazione e gestione host, pubblicazione località
+
+La terza versione introduce la registrazione degli host, la possibilità di pubblicare e gestire le proprie strutture, e funzionalità di upload immagini per le località.
+
+v4. Features G, H, I ⇒ Pagamenti, notifiche e integrazione comunicazioni
+
+La quarta versione implementa sistemi di pagamento online (es. Stripe), notifiche via email, e integrazione di chat e SMS per facilitare la comunicazione tra clienti e host.
+
+---------------------
+
+🧰 Tecnologie
+
+Backend
+- Java 
+- Spring Boot
+- Spring Security + JWT
+- PostgreSQL
+- Maven
+
+Frontend
+- HTML, CSS, Bootstrap
+- JavaScript
+- Vite.js 
+
+Database
+- PostgreSQL (hosted in locale o remoto)
+
+---------------------
+
+🔐 Autenticazione
+
+Basata su JWT Token
+
+Login e registrazione tramite endpoint REST
+
+Gli endpoint protetti richiedono il token in header:
+Authorization: Bearer <token>
+
+Accesso a specifici endpoint controllato tramite annotazioni Spring:
+
+@PreAuthorize("hasAuthority('USER')") → solo utenti autenticati come clienti
+
+@PreAuthorize("hasAuthority('HOST')") → solo host possono creare/modificare strutture
+
+Gli utenti ricevono un ruolo al momento della registrazione (USER o HOST) per definire le autorizzazioni
