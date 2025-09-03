@@ -37,7 +37,7 @@ public class LocationService {
         location.setCitta(dto.citta());
         location.setDescrizione(dto.descrizione());
         location.setPrezzoPerNotte(dto.prezzoPerNotte());
-        location.setHost(host);  // ✅ collega la location all'host
+        location.setHost(host);
 
         return locationRepository.save(location);
     }
