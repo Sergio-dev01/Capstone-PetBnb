@@ -22,7 +22,7 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasRole('USER')")
     public BookingRespDTO createBooking(
             @AuthenticationPrincipal User currentUser,
             @RequestBody @Validated NewBookingDTO bookingDTO
@@ -39,13 +39,13 @@ public class BookingController {
     }
 
     @GetMapping("/me")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasRole('USER')")
     public List<Booking> getMyBookings(@AuthenticationPrincipal User currentUser) {
         return bookingService.getBookingsByUser(currentUser);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasRole('USER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMyBooking(
             @PathVariable Long id,

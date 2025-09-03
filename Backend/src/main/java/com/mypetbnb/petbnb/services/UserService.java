@@ -1,7 +1,6 @@
 package com.mypetbnb.petbnb.services;
 
 import com.mypetbnb.petbnb.entities.User;
-import com.mypetbnb.petbnb.enums.Role;
 import com.mypetbnb.petbnb.exceptions.BadRequestException;
 import com.mypetbnb.petbnb.exceptions.NotFoundException;
 import com.mypetbnb.petbnb.payload.NewUserDTO;
@@ -29,9 +28,10 @@ public class UserService {
             throw new BadRequestException("Username già utilizzato");
         }
 
-        User newUtente = new User(user.username(), user.email(), bcrypt.encode(user.password()), Role.USER);
+        User newUtente = new User(user.username(), user.email(), bcrypt.encode(user.password()), user.role());
         return userRepository.save(newUtente);
     }
+
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)

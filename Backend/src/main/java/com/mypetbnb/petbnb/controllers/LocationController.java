@@ -22,7 +22,7 @@ public class LocationController {
 
     //  crea una location
     @PostMapping
-    @PreAuthorize("hasAuthority('HOST')")
+    @PreAuthorize("hasRole('HOST')")
     @ResponseStatus(HttpStatus.CREATED)
     public Location createLocation(
             @AuthenticationPrincipal User currentUser,
@@ -45,14 +45,14 @@ public class LocationController {
 
     // visualizza solo le proprie location
     @GetMapping("/me")
-    @PreAuthorize("hasAuthority('HOST')")
+    @PreAuthorize("hasRole('HOST')")
     public List<Location> getOwnLocations(@AuthenticationPrincipal User currentUser) {
         return locationService.getLocationsByHost(currentUser.getId());
     }
 
     //  modifica solo le proprie location
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('HOST')")
+    @PreAuthorize("hasRole('HOST')")
     public Location updateLocation(
             @AuthenticationPrincipal User currentUser,
             @PathVariable Long id,
@@ -63,7 +63,7 @@ public class LocationController {
 
     // elimina solo le proprie location
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('HOST')")
+    @PreAuthorize("hasRole('HOST')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteLocation(
             @AuthenticationPrincipal User currentUser,

@@ -36,14 +36,14 @@ public class UserController {
 
     //  Visualizza profilo personale (USER o HOST)
     @GetMapping("/me")
-    @PreAuthorize("hasAnyAuthority('USER', 'HOST')")
+    @PreAuthorize("hasAnyRole('USER', 'HOST')")
     public User getMyProfile(@AuthenticationPrincipal User currentUser) {
         return currentUser;
     }
 
     //  Modifica profilo personale (USER o HOST)
     @PutMapping("/me")
-    @PreAuthorize("hasAnyAuthority('USER', 'HOST')")
+    @PreAuthorize("hasAnyRole('USER', 'HOST')")
     public User updateMyProfile(@AuthenticationPrincipal User currentUser,
                                 @RequestBody @Validated NewUserDTO updateDTO,
                                 BindingResult validation) {
@@ -59,7 +59,7 @@ public class UserController {
 
     // Elimina profilo personale (USER o HOST)
     @DeleteMapping("/me")
-    @PreAuthorize("hasAnyAuthority('USER', 'HOST')")
+    @PreAuthorize("hasAnyRole('USER', 'HOST')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMyAccount(@AuthenticationPrincipal User currentUser) {
         userService.findByIdAndDelete(currentUser.getId());
