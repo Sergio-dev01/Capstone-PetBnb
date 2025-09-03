@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record NewUserDTO(
+        @NotBlank(message = "Lo username è obbligatorio.")
+        String username,
+
         @NotBlank(message = "L'email è obbligatoria.")
         @Email
         String email,
@@ -13,5 +16,5 @@ public record NewUserDTO(
         @Size(min = 6)
         String password
 ) {
-
 }
+
