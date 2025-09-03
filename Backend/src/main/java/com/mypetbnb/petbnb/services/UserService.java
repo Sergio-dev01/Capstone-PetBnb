@@ -1,13 +1,13 @@
-package services;
+package com.mypetbnb.petbnb.services;
 
-import entities.User;
-import exceptions.BadRequestException;
-import exceptions.NotFoundException;
+import com.mypetbnb.petbnb.entities.User;
+import com.mypetbnb.petbnb.exceptions.BadRequestException;
+import com.mypetbnb.petbnb.exceptions.NotFoundException;
+import com.mypetbnb.petbnb.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import repositories.UserRepository;
 
 @Service
 @Slf4j

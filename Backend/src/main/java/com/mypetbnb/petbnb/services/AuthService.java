@@ -1,12 +1,12 @@
-package services;
+package com.mypetbnb.petbnb.services;
 
-import entities.User;
-import exceptions.UnauthorizedException;
+import com.mypetbnb.petbnb.entities.User;
+import com.mypetbnb.petbnb.exceptions.UnauthorizedException;
+import com.mypetbnb.petbnb.payload.UserLoginDTO;
+import com.mypetbnb.petbnb.tools.JwtTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import payload.UserLoginDTO;
-import tools.JwtTools;
 
 @Service
 public class AuthService {

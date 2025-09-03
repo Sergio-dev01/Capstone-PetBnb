@@ -1,4 +1,4 @@
-package exceptions;
+package com.mypetbnb.petbnb.exceptions;
 
 public class BadRequestException extends RuntimeException {
     public BadRequestException(String message) {

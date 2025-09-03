@@ -1,7 +1,7 @@
-package tools;
+package com.mypetbnb.petbnb.tools;
 
-import entities.User;
-import exceptions.UnauthorizedException;
+import com.mypetbnb.petbnb.entities.User;
+import com.mypetbnb.petbnb.exceptions.UnauthorizedException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;

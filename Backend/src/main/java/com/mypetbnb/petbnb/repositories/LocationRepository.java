@@ -1,6 +1,6 @@
-package repositories;
+package com.mypetbnb.petbnb.repositories;
 
-import entities.Location;
+import com.mypetbnb.petbnb.entities.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

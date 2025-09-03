@@ -1,14 +1,14 @@
-package services;
+package com.mypetbnb.petbnb.services;
 
-import entities.Location;
-import entities.User;
-import enums.Role;
-import exceptions.BadRequestException;
-import exceptions.NotFoundException;
+import com.mypetbnb.petbnb.entities.Location;
+import com.mypetbnb.petbnb.entities.User;
+import com.mypetbnb.petbnb.enums.Role;
+import com.mypetbnb.petbnb.exceptions.BadRequestException;
+import com.mypetbnb.petbnb.exceptions.NotFoundException;
+import com.mypetbnb.petbnb.repositories.LocationRepository;
+import com.mypetbnb.petbnb.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositories.LocationRepository;
-import repositories.UserRepository;
 
 import java.util.List;
 

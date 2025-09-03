@@ -1,11 +1,12 @@
-package entities;
+package com.mypetbnb.petbnb.entities;
 
-import enums.Role;
+import com.mypetbnb.petbnb.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {

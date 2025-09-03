@@ -1,6 +1,6 @@
-package repositories;
+package com.mypetbnb.petbnb.repositories;
 
-import entities.Booking;
+import com.mypetbnb.petbnb.entities.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
