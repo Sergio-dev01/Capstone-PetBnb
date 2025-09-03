@@ -61,6 +61,9 @@ public class Location {
         this.prezzoPerNotte = prezzoPerNotte;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public String toString() {

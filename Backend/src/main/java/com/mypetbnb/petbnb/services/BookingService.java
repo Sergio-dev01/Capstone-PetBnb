@@ -3,7 +3,9 @@ package com.mypetbnb.petbnb.services;
 import com.mypetbnb.petbnb.entities.Booking;
 import com.mypetbnb.petbnb.entities.Location;
 import com.mypetbnb.petbnb.entities.User;
+import com.mypetbnb.petbnb.exceptions.BadRequestException;
 import com.mypetbnb.petbnb.exceptions.NotFoundException;
+import com.mypetbnb.petbnb.payload.NewBookingDTO;
 import com.mypetbnb.petbnb.repositories.BookingRepository;
 import com.mypetbnb.petbnb.repositories.LocationRepository;
 import com.mypetbnb.petbnb.repositories.UserRepository;
@@ -19,35 +21,42 @@ public class BookingService {
     private BookingRepository bookingRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private LocationRepository locationRepository;
 
-    public Booking createBooking(Long userId, Long locationId, Booking bookingDetails) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Utente non trovato"));
+    @Autowired
+    private UserRepository userRepository;
 
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new NotFoundException("Località non trovata"));
+    public Booking createBooking(User user, NewBookingDTO dto) {
+        Location location = locationRepository.findById(dto.locationId())
+                .orElseThrow(() -> new NotFoundException("Location non trovata"));
 
-        bookingDetails.setUser(user);
-        bookingDetails.setLocation(location);
+        if (dto.startDate().isAfter(dto.endDate())) {
+            throw new BadRequestException("La data di inizio non può essere dopo la data di fine");
+        }
 
-        return bookingRepository.save(bookingDetails);
+        // aggiungere logica per evitare doppie prenotazioni
+
+        Booking booking = new Booking();
+        booking.setUser(user);
+        booking.setLocation(location);
+        booking.setStartDate(dto.startDate());
+        booking.setEndDate(dto.endDate());
+
+        return bookingRepository.save(booking);
     }
 
-    public Booking getBookingById(Long bookingId) {
-        return bookingRepository.findById(bookingId)
+    public List<Booking> getBookingsByUser(User user) {
+        return bookingRepository.findByUser(user);
+    }
+
+    public void deleteBooking(Long bookingId, User currentUser) {
+        Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new NotFoundException("Prenotazione non trovata"));
-    }
 
-    public List<Booking> getBookingsByUser(Long userId) {
-        return bookingRepository.findByUserId(userId);
-    }
+        if (!booking.getUser().getId().equals(currentUser.getId())) {
+            throw new BadRequestException("Non puoi cancellare questa prenotazione");
+        }
 
-    public void deleteBooking(Long bookingId) {
-        Booking booking = getBookingById(bookingId);
         bookingRepository.delete(booking);
     }
 }
