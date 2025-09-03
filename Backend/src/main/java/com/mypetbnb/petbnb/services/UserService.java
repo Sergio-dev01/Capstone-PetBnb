@@ -24,7 +24,12 @@ public class UserService {
         if (userRepository.findByEmail(user.email()).isPresent()) {
             throw new BadRequestException("Email già utilizzata");
         }
-        User newUtente = new User(user.email(), bcrypt.encode(user.password()), Role.USER);
+
+        if (userRepository.findByUsername(user.username()).isPresent()) {
+            throw new BadRequestException("Username già utilizzato");
+        }
+
+        User newUtente = new User(user.username(), user.email(), bcrypt.encode(user.password()), Role.USER);
         return userRepository.save(newUtente);
     }
 
@@ -41,11 +46,19 @@ public class UserService {
 
         User found = this.findById(userId);
 
-
-        if (!found.getEmail().equals(payload.email()))
+        if (!found.getEmail().equals(payload.email())) {
             this.userRepository.findByEmail(payload.email()).ifPresent(user -> {
                 throw new BadRequestException("L'email " + user.getEmail() + " è già in uso!");
             });
+        }
+
+        if (!found.getUsername().equals(payload.username())) {
+            this.userRepository.findByUsername(payload.username()).ifPresent(user -> {
+                throw new BadRequestException("Lo username " + user.getUsername() + " è già in uso!");
+            });
+        }
+
+        found.setUsername(payload.username());
         found.setEmail(payload.email());
         found.setPassword(bcrypt.encode(payload.password()));
 
@@ -55,6 +68,7 @@ public class UserService {
 
         return modifiedUser;
     }
+
 
     public void findByIdAndDelete(Long userId) {
         User found = this.findById(userId);
