@@ -17,75 +17,51 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
-
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public User getUserById(@PathVariable Long id) {
-        return userService.findById(id);
-    }
-
-
+    // Registrazione libera come USER o HOST
     @PostMapping("/register")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public User createUser(@RequestBody @Validated NewUserDTO newUserDTO, BindingResult validation) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public User register(@RequestBody @Validated NewUserDTO newUserDTO, BindingResult validation) {
         if (validation.hasErrors()) {
-            List<String> errorMessages = validation.getFieldErrors().stream()
-                    .map(fieldError -> fieldError.getDefaultMessage())
+            List<String> errors = validation.getFieldErrors().stream()
+                    .map(field -> field.getDefaultMessage())
                     .toList();
-
-            throw new ValidationException(errorMessages);
-        } else {
-            return userService.createUser(newUserDTO);
+            throw new ValidationException(errors);
         }
-
+        return userService.createUser(newUserDTO);
     }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public User updateUser(@PathVariable Long id, @RequestBody @Validated NewUserDTO newUserDTO, BindingResult validation) {
-        if (validation.hasErrors()) {
-            throw new ValidationException(validation.getFieldErrors().stream().map(fieldError -> fieldError.getDefaultMessage()).toList());
-        } else {
-            return userService.findByIdAndUpdate(id, newUserDTO);
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable Long id) {
-        userService.findByIdAndDelete(id);
-    }
-
-    // ENDPOINT ME
-
+    //  Visualizza profilo personale (USER o HOST)
     @GetMapping("/me")
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
-    public User getProfile(@AuthenticationPrincipal User currentAuthenticatedUser) {
-        return currentAuthenticatedUser;
+    @PreAuthorize("hasAnyAuthority('USER', 'HOST')")
+    public User getMyProfile(@AuthenticationPrincipal User currentUser) {
+        return currentUser;
     }
 
-
+    //  Modifica profilo personale (USER o HOST)
     @PutMapping("/me")
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
-    public User updateOwnProfile(@AuthenticationPrincipal User currentAuthenticatedUser,
-                                 @RequestBody @Validated NewUserDTO newUserDTO, BindingResult validation) {
+    @PreAuthorize("hasAnyAuthority('USER', 'HOST')")
+    public User updateMyProfile(@AuthenticationPrincipal User currentUser,
+                                @RequestBody @Validated NewUserDTO updateDTO,
+                                BindingResult validation) {
         if (validation.hasErrors()) {
-            throw new ValidationException(validation.getFieldErrors().stream().map(fieldError -> fieldError.getDefaultMessage()).toList());
-        } else {
-            return userService.findByIdAndUpdate(currentAuthenticatedUser.getId(), newUserDTO);
+            List<String> errors = validation.getFieldErrors().stream()
+                    .map(field -> field.getDefaultMessage())
+                    .toList();
+            throw new ValidationException(errors);
         }
+
+        return userService.findByIdAndUpdate(currentUser.getId(), updateDTO);
     }
 
-
+    // Elimina profilo personale (USER o HOST)
     @DeleteMapping("/me")
-    @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER', 'HOST')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMe(@AuthenticationPrincipal User currentAuthenticatedUser) {
-        userService.findByIdAndDelete(currentAuthenticatedUser.getId());
+    public void deleteMyAccount(@AuthenticationPrincipal User currentUser) {
+        userService.findByIdAndDelete(currentUser.getId());
     }
-
 }

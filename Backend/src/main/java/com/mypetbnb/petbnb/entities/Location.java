@@ -1,9 +1,6 @@
 package com.mypetbnb.petbnb.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +17,11 @@ public class Location {
     private String citta;
     private String descrizione;
     private double prezzoPerNotte;
+
+    @ManyToOne
+    @JoinColumn(name = "host_id", nullable = false)
+    private User host;
+
 
     public String getNome() {
         return nome;
@@ -63,6 +65,14 @@ public class Location {
 
     public Long getId() {
         return id;
+    }
+
+    public User getHost() {
+        return host;
+    }
+
+    public void setHost(User host) {
+        this.host = host;
     }
 
     @Override
