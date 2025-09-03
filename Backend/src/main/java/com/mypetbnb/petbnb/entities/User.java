@@ -20,6 +20,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String username;
+
     @Column(unique = true)
     private String email;
 
@@ -28,7 +31,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public User(String email, String password, Role role) {
+    public User(String username, String email, String password, Role role) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -62,6 +66,14 @@ public class User implements UserDetails {
         this.role = role;
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -76,11 +88,6 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
     }
 
-
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
