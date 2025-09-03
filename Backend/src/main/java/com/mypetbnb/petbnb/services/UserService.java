@@ -1,8 +1,10 @@
 package com.mypetbnb.petbnb.services;
 
 import com.mypetbnb.petbnb.entities.User;
+import com.mypetbnb.petbnb.enums.Role;
 import com.mypetbnb.petbnb.exceptions.BadRequestException;
 import com.mypetbnb.petbnb.exceptions.NotFoundException;
+import com.mypetbnb.petbnb.payload.NewUserDTO;
 import com.mypetbnb.petbnb.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,12 @@ public class UserService {
     @Autowired
     private PasswordEncoder bcrypt;
 
-    public User createUser(User user) {
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+    public User createUser(NewUserDTO user) {
+        if (userRepository.findByEmail(user.email()).isPresent()) {
             throw new BadRequestException("Email già utilizzata");
         }
-        user.setPassword(bcrypt.encode(user.getPassword()));
-        return userRepository.save(user);
+        User newUtente = new User(user.email(), bcrypt.encode(user.password()), Role.USER);
+        return userRepository.save(newUtente);
     }
 
     public User findByEmail(String email) {
@@ -31,19 +33,33 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("Utente non trovato"));
     }
 
-    public User updateUser(Long userId, User userData) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Utente non trovato"));
-
-        if (!user.getEmail().equals(userData.getEmail()) && userRepository.findByEmail(userData.getEmail()).isPresent()) {
-            throw new BadRequestException("Email già utilizzata");
-        }
-
-        user.setEmail(userData.getEmail());
-        if (userData.getPassword() != null && !userData.getPassword().isBlank()) {
-            user.setPassword(bcrypt.encode(userData.getPassword()));
-        }
-        return userRepository.save(user);
+    public User findById(Long userId) {
+        return this.userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User con id " + userId + " non trovato."));
     }
+
+    public User findByIdAndUpdate(Long userId, NewUserDTO payload) {
+
+        User found = this.findById(userId);
+
+
+        if (!found.getEmail().equals(payload.email()))
+            this.userRepository.findByEmail(payload.email()).ifPresent(user -> {
+                throw new BadRequestException("L'email " + user.getEmail() + " è già in uso!");
+            });
+        found.setEmail(payload.email());
+        found.setPassword(bcrypt.encode(payload.password()));
+
+        User modifiedUser = this.userRepository.save(found);
+
+        log.info("L'utente con id " + found.getId() + " è stato modificato!");
+
+        return modifiedUser;
+    }
+
+    public void findByIdAndDelete(Long userId) {
+        User found = this.findById(userId);
+        this.userRepository.delete(found);
+    }
+
 
 }
