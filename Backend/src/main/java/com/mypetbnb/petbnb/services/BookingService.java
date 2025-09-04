@@ -59,4 +59,12 @@ public class BookingService {
 
         bookingRepository.delete(booking);
     }
+    
+    public List<Booking> getBookingsForHostLocations(Long hostId) {
+        List<Location> hostLocations = locationRepository.findByHostId(hostId);
+        if (hostLocations.isEmpty()) return List.of();
+
+        return bookingRepository.findByLocationIn(hostLocations);
+    }
+
 }

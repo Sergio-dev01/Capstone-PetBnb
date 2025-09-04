@@ -6,7 +6,10 @@ public record BookingRespDTO(
         Long bookingId,
         Long locationId,
         String locationName,
+        String username,
         LocalDate startDate,
         LocalDate endDate
 ) {
 }
+
+

@@ -30,19 +30,46 @@ public class BookingController {
         Booking booking = bookingService.createBooking(currentUser, bookingDTO);
 
         return new BookingRespDTO(
-                booking.getUser().getId(),
+                booking.getId(),
                 booking.getLocation().getId(),
                 booking.getLocation().getNome(),
+                booking.getUser().getUsername(),
                 booking.getStartDate(),
                 booking.getEndDate()
         );
     }
 
+
     @GetMapping("/me")
     @PreAuthorize("hasRole('USER')")
-    public List<Booking> getMyBookings(@AuthenticationPrincipal User currentUser) {
-        return bookingService.getBookingsByUser(currentUser);
+    public List<BookingRespDTO> getMyBookings(@AuthenticationPrincipal User currentUser) {
+        return bookingService.getBookingsByUser(currentUser).stream()
+                .map(booking -> new BookingRespDTO(
+                        booking.getId(),
+                        booking.getLocation().getId(),
+                        booking.getLocation().getNome(),
+                        booking.getUser().getUsername(),
+                        booking.getStartDate(),
+                        booking.getEndDate()
+                ))
+                .toList();
     }
+
+    @GetMapping("/host")
+    @PreAuthorize("hasRole('HOST')")
+    public List<BookingRespDTO> getBookingsForMyLocations(@AuthenticationPrincipal User currentHost) {
+        return bookingService.getBookingsForHostLocations(currentHost.getId()).stream()
+                .map(booking -> new BookingRespDTO(
+                        booking.getId(),
+                        booking.getLocation().getId(),
+                        booking.getLocation().getNome(),
+                        booking.getUser().getUsername(),
+                        booking.getStartDate(),
+                        booking.getEndDate()
+                ))
+                .toList();
+    }
+
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('USER')")

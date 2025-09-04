@@ -56,4 +56,8 @@ public class Booking {
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
+
+    public Long getId() {
+        return id;
+    }
 }
