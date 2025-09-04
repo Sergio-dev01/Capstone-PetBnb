@@ -25,6 +25,13 @@ public class Booking {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    public Booking(User user, Location location, LocalDate startDate, LocalDate endDate) {
+        this.user = user;
+        this.location = location;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public User getUser() {
         return user;
     }

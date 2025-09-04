@@ -26,6 +26,15 @@ public class Location {
     @OneToMany(mappedBy = "location")
     private List<Booking> bookings;
 
+    public Location(String nome, String indirizzo, String citta, String descrizione, double prezzoPerNotte, User host) {
+        this.nome = nome;
+        this.indirizzo = indirizzo;
+        this.citta = citta;
+        this.descrizione = descrizione;
+        this.prezzoPerNotte = prezzoPerNotte;
+        this.host = host;
+    }
+
     public String getNome() {
         return nome;
     }
