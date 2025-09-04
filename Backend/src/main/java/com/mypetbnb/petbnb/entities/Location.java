@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +23,8 @@ public class Location {
     @ManyToOne
     @JoinColumn(name = "host_id", nullable = false)
     private User host;
-
+    @OneToMany(mappedBy = "location")
+    private List<Booking> bookings;
 
     public String getNome() {
         return nome;

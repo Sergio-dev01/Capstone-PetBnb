@@ -30,6 +30,10 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "user")
+    private List<Booking> bookings;
+    @OneToMany(mappedBy = "host")
+    private List<Location> locations;
 
     public User(String username, String email, String password, Role role) {
         this.username = username;
