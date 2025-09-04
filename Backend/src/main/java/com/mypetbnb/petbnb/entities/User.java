@@ -1,5 +1,6 @@
 package com.mypetbnb.petbnb.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mypetbnb.petbnb.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"password", "enabled", "accountNonExpired", "credentialsNonExpired"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
