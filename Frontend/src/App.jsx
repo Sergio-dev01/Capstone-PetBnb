@@ -11,6 +11,7 @@ import LocationPage from "./components/LocationPage";
 import BookingPage from "./components/BookingPage";
 import HostBookingsPage from "./components/HostBookingPage";
 import AddLocationPage from "./components/AddLocationPage";
+import LocationDetailPage from "./components/LocationDetailPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/bookings" element={<BookingPage />} />
           <Route path="/host/bookings" element={<HostBookingsPage />} />
           <Route path="/locations/add" element={<AddLocationPage />} />
+          <Route path="/locations/:id" element={<LocationDetailPage />} />
           <Route path="*" element={<div>Pagina non trovata</div>} />
         </Routes>
       </div>
