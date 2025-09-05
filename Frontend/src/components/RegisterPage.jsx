@@ -16,18 +16,28 @@ function RegisterPage() {
   };
 
   const handleRegister = async () => {
-    const res = await fetch("http://localhost:3001/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    try {
+      const res = await fetch("http://localhost:3001/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    if (res.ok) {
-      alert("Registrazione avvenuta con successo!");
-      navigate("/login");
-    } else {
-      alert("Errore durante la registrazione.");
+      if (res.ok) {
+        alert("Registrazione avvenuta con successo!");
+        navigate("/login");
+      } else {
+        const errorData = await res.json();
+        alert(errorData.error || "Errore durante la registrazione.");
+      }
+    } catch (err) {
+      alert("Errore di rete o del server.");
+      console.error(err);
     }
+  };
+
+  const handleBackToWelcome = () => {
+    navigate("/");
   };
 
   return (
@@ -43,6 +53,9 @@ function RegisterPage() {
       </select>
       <button className="btn btn-success" onClick={handleRegister}>
         Registrati
+      </button>
+      <button className="btn btn-secondary" onClick={handleBackToWelcome}>
+        Torna alla Welcome Page
       </button>
     </div>
   );
