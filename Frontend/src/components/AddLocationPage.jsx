@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function AddLocationPage() {
   const [form, setForm] = useState({
@@ -39,9 +40,14 @@ function AddLocationPage() {
       <input name="citta" placeholder="Città" className="form-control my-2" onChange={handleChange} />
       <textarea name="descrizione" placeholder="Descrizione" className="form-control my-2" onChange={handleChange} />
       <input name="prezzoPerNotte" placeholder="Prezzo per notte" className="form-control my-2" type="number" onChange={handleChange} />
-      <button className="btn btn-success" onClick={handleSubmit}>
-        Crea
-      </button>
+      <div>
+        <button className="btn btn-success" onClick={handleSubmit}>
+          Crea
+        </button>
+        <Link to="/welcome" className="btn btn-secondary mx-2">
+          Torna alla Welcome
+        </Link>
+      </div>
     </div>
   );
 }

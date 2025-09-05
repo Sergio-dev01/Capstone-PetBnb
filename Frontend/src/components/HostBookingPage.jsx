@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function HostBookingsPage() {
   const [bookings, setBookings] = useState([]);
@@ -29,6 +30,9 @@ function HostBookingsPage() {
           </li>
         ))}
       </ul>
+      <Link to="/welcome" className="btn btn-secondary mt-3">
+        Torna alla Home
+      </Link>
     </div>
   );
 }

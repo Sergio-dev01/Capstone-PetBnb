@@ -22,6 +22,7 @@ function LoginPage() {
         return;
       }
 
+      // Salva il token e i dati utente nel localStorage direttamente da login
       const data = await resp.json();
       localStorage.setItem("accessToken", data.accessToken);
 
@@ -31,14 +32,21 @@ function LoginPage() {
       const payload = parts[1];
       const decoded = JSON.parse(atob(payload));
       const role = decoded.role;
+      const userId = decoded.sub;
+      const userEmail = decoded.email;
+      const username = decoded.username;
 
-      if (role === "USER") {
-        navigate("/bookings");
-      } else if (role === "HOST") {
-        navigate("/host/bookings");
-      } else {
-        navigate("/");
-      }
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: userId,
+          email: userEmail,
+          role: role,
+          username: username,
+        })
+      );
+
+      navigate("/welcome");
     } catch (error) {
       alert("Errore durante il login");
       console.error(error);

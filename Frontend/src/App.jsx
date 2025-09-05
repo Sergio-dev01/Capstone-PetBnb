@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 
-import WelcomePage from "./components/WelcomePage";
+import LandingPage from "./components/LandingPage";
 import RegisterPage from "./components/RegisterPage";
 import LoginPage from "./components/LoginPage";
 import UserPage from "./components/UserPage";
@@ -12,6 +12,7 @@ import BookingPage from "./components/BookingPage";
 import HostBookingsPage from "./components/HostBookingPage";
 import AddLocationPage from "./components/AddLocationPage";
 import LocationDetailPage from "./components/LocationDetailPage";
+import WelcomePage from "./components/WelcomePage";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       <Navbar />
       <div className="container">
         <Routes>
-          <Route path="/" element={<WelcomePage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/welcome" element={<WelcomePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/users/me" element={<UserPage />} />
