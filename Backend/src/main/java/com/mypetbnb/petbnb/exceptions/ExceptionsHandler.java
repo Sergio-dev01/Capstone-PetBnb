@@ -49,5 +49,12 @@ public class ExceptionsHandler {
         ex.printStackTrace();
         return new ErrorsDTO("Errore generico! Stiamo sistemando il problema!", LocalDateTime.now());
     }
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorsDTO handleDuplicateEmail(DuplicateEmailException ex) {
+        return new ErrorsDTO(ex.getMessage(), LocalDateTime.now());
+    }
+
 }
 
