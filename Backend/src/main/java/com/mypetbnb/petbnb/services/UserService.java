@@ -75,5 +75,9 @@ public class UserService {
         this.userRepository.delete(found);
     }
 
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
 
 }

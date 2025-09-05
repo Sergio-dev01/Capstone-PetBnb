@@ -1,6 +1,7 @@
 package com.mypetbnb.petbnb.controllers;
 
 import com.mypetbnb.petbnb.entities.User;
+import com.mypetbnb.petbnb.exceptions.DuplicateEmailException;
 import com.mypetbnb.petbnb.exceptions.ValidationException;
 import com.mypetbnb.petbnb.payload.NewUserDTO;
 import com.mypetbnb.petbnb.services.UserService;
@@ -31,8 +32,14 @@ public class UserController {
                     .toList();
             throw new ValidationException(errors);
         }
+
+        if (userService.existsByEmail(newUserDTO.email())) {
+            throw new DuplicateEmailException("Email già registrata");
+        }
+
         return userService.createUser(newUserDTO);
     }
+
 
     //  Visualizza profilo personale (USER o HOST)
     @GetMapping("/me")
