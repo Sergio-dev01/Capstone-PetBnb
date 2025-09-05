@@ -55,6 +55,9 @@ export default function LocationPage() {
           ))
         )}
       </ul>
+      <Link to="/welcome" className="btn btn-secondary mt-3">
+        Torna alla Home
+      </Link>
     </div>
   );
 }
