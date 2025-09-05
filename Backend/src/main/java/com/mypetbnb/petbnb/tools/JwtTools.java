@@ -20,6 +20,8 @@ public class JwtTools {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7))
                 .setSubject(String.valueOf(user.getId()))
+                .claim("username", user.getUsername())
+                .claim("email", user.getEmail())
                 .claim("role", user.getRole().name())
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
