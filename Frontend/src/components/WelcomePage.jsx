@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "../css/WelcomePage.css";
 
 function WelcomePage() {
   const [user, setUser] = useState(null);
@@ -23,15 +24,15 @@ function WelcomePage() {
   }
 
   return (
-    <div className="container mt-5 text-center">
-      <h1>Benvenuto/a, {user.username}!</h1>
-      <p className="lead mt-3">
+    <div className="container welcome-container text-center">
+      <h1 className="welcome-title">Benvenuto/a, {user.username}!</h1>
+      <p className="lead mt-3 role-description">
         Ruolo: <strong>{user.role}</strong>
       </p>
-      <p>Scopri le nostre locations o gestisci le tue attività.</p>
+      <p className="mt-4">Scopri le nostre locations o gestisci le tue attività.</p>
 
-      <div className="mt-4">
-        <Link to="/locations" className="btn btn-primary btn-lg me-2">
+      <div className="button-group mt-5">
+        <Link to="/locations" className="btn btn-outline-primary btn-lg me-3">
           Esplora Locations
         </Link>
 
@@ -43,7 +44,7 @@ function WelcomePage() {
 
         {user.role === "HOST" && (
           <>
-            <Link to="/locations/add" className="btn btn-success btn-lg me-2">
+            <Link to="/locations/add" className="btn btn-success btn-lg me-3">
               Aggiungi Location
             </Link>
             <Link to="/host/bookings" className="btn btn-outline-success btn-lg">

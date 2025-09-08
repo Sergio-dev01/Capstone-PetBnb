@@ -41,42 +41,42 @@ function Navbar() {
   }
 
   return (
-    <nav className="navbar navbar-expand navbar-light bg-light mb-3">
-      <div className="container d-flex justify-content-between align-items-center">
-        <div className="d-flex gap-3 align-items-center">
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-links">
           <Link to="/welcome" className="navbar-brand">
             PetBnb
           </Link>
-          <Link to="/locations" className="nav-link">
+          <Link to="/locations" className="navbar-link">
             Locations
           </Link>
 
           {role === "USER" && (
-            <Link to="/bookings" className="nav-link">
+            <Link to="/bookings" className="navbar-link">
               Le mie Prenotazioni
             </Link>
           )}
 
           {role === "HOST" && (
             <>
-              <Link to="/locations/add" className="nav-link">
+              <Link to="/locations/add" className="navbar-link">
                 + Location
               </Link>
-              <Link to="/host/bookings" className="nav-link">
+              <Link to="/host/bookings" className="navbar-link">
                 Prenotazioni Host
               </Link>
             </>
           )}
         </div>
 
-        <div className="ms-auto d-flex align-items-center gap-3">
+        <div className="navbar-profile">
           {user && (
             <>
-              <span className="text-muted">Ciao, {user.username}</span>
-              <Link to="/users/me" className="nav-link">
+              <span className="navbar-username">Ciao, {user.username}</span>
+              <Link to="/users/me" className="navbar-link">
                 Profilo
               </Link>
-              <Link to="/logout" className="btn btn-outline-danger btn-sm">
+              <Link to="/logout" className="navbar-logout">
                 Logout
               </Link>
             </>
