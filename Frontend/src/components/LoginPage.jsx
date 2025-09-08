@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../css/LoginPage.css";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -56,13 +57,18 @@ function LoginPage() {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Login</h2>
-      <input type="email" placeholder="Email" className="form-control my-2" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" className="form-control my-2" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button className="btn btn-primary" onClick={handleLogin} disabled={loading}>
-        {loading ? "Caricamento..." : "Accedi"}
-      </button>
+    <div className="login-page">
+      <div className="login-box">
+        <h1 className="login-title">
+          Benvenuto su <span className="highlight">PetBnb 🐾</span>
+        </h1>
+        <p className="subtitle">Accedi per continuare</p>
+        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="login-input" />
+        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="login-input" />
+        <button className="login-button" onClick={handleLogin} disabled={loading}>
+          {loading ? "Caricamento..." : "Accedi"}
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../css/RegisterPage.css";
 
 function RegisterPage() {
   const [form, setForm] = useState({
@@ -41,22 +42,31 @@ function RegisterPage() {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Registrazione</h2>
-      <input name="username" placeholder="Username" className="form-control my-2" onChange={handleChange} />
-      <input name="email" placeholder="Email" className="form-control my-2" onChange={handleChange} />
-      <input name="password" placeholder="Password" type="password" className="form-control my-2" onChange={handleChange} />
-      <h6>Sei un Host o un User?</h6>
-      <select name="role" className="form-control my-2" onChange={handleChange}>
-        <option value="USER">User</option>
-        <option value="HOST">Host</option>
-      </select>
-      <button className="btn btn-success me-2" onClick={handleRegister}>
-        Registrati
-      </button>
-      <button className="btn btn-secondary" onClick={handleBackToWelcome}>
-        Torna alla Welcome Page
-      </button>
+    <div className="register-page">
+      <div className="register-box">
+        <h1 className="register-title">
+          Registrati a <span className="highlight">PetBnb 🐾</span>
+        </h1>
+        <p className="subtitle">Compila i campi per registrarti</p>
+
+        <input name="username" placeholder="Username" value={form.username} onChange={handleChange} className="register-input" />
+        <input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} className="register-input" />
+        <input name="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} className="register-input" />
+        <h6 className="role-label">Sei un Host o un User?</h6>
+        <select name="role" value={form.role} onChange={handleChange} className="register-input">
+          <option value="USER">User</option>
+          <option value="HOST">Host</option>
+        </select>
+
+        <div className="button-group">
+          <button className="btn btn-primary" onClick={handleRegister}>
+            Registrati
+          </button>
+          <button className="btn btn-secondary" onClick={handleBackToWelcome}>
+            Torna alla Welcome Page
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
