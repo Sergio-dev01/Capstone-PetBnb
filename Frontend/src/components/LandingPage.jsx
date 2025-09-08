@@ -1,17 +1,22 @@
 import { Link } from "react-router-dom";
+import "../css/LandingPage.css";
 
 function LandingPage() {
   return (
-    <div className="container text-center mt-5">
-      <h1 className="mb-4">Benvenuto su PetBnb 🐾</h1>
-      <p className="lead">Trova o offri ospitalità per i tuoi amici a quattro zampe!</p>
-      <div className="mt-4">
-        <Link to="/register" className="btn btn-outline-primary mx-2">
-          Registrati
-        </Link>
-        <Link to="/login" className="btn btn-primary mx-2">
-          Login
-        </Link>
+    <div className="landing-page">
+      <div className="hero-content">
+        <h1>
+          Benvenuto su <span className="highlight">PetBnb 🐾</span>
+        </h1>
+        <p>Trova o offri ospitalità per i tuoi amici a quattro zampe!</p>
+        <div className="btn-group">
+          <Link to="/register" className="btn btn-primary">
+            Registrati
+          </Link>
+          <Link to="/login" className="btn btn-secondary">
+            Login
+          </Link>
+        </div>
       </div>
     </div>
   );
