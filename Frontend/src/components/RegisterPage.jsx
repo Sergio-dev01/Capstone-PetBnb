@@ -51,7 +51,7 @@ function RegisterPage() {
         <option value="USER">User</option>
         <option value="HOST">Host</option>
       </select>
-      <button className="btn btn-success" onClick={handleRegister}>
+      <button className="btn btn-success me-2" onClick={handleRegister}>
         Registrati
       </button>
       <button className="btn btn-secondary" onClick={handleBackToWelcome}>

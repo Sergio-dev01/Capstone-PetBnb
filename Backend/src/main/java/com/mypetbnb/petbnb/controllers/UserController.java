@@ -4,6 +4,7 @@ import com.mypetbnb.petbnb.entities.User;
 import com.mypetbnb.petbnb.exceptions.DuplicateEmailException;
 import com.mypetbnb.petbnb.exceptions.ValidationException;
 import com.mypetbnb.petbnb.payload.NewUserDTO;
+import com.mypetbnb.petbnb.payload.UpdateUserDTO;
 import com.mypetbnb.petbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,7 +53,7 @@ public class UserController {
     @PutMapping("/me")
     @PreAuthorize("hasAnyRole('USER', 'HOST')")
     public User updateMyProfile(@AuthenticationPrincipal User currentUser,
-                                @RequestBody @Validated NewUserDTO updateDTO,
+                                @RequestBody @Validated UpdateUserDTO updateDTO,
                                 BindingResult validation) {
         if (validation.hasErrors()) {
             List<String> errors = validation.getFieldErrors().stream()

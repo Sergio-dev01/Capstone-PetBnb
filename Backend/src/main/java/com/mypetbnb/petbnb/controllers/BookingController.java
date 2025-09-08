@@ -2,13 +2,16 @@ package com.mypetbnb.petbnb.controllers;
 
 import com.mypetbnb.petbnb.entities.Booking;
 import com.mypetbnb.petbnb.entities.User;
+import com.mypetbnb.petbnb.exceptions.ValidationException;
 import com.mypetbnb.petbnb.payload.BookingRespDTO;
 import com.mypetbnb.petbnb.payload.NewBookingDTO;
+import com.mypetbnb.petbnb.payload.UpdateBookingDTO;
 import com.mypetbnb.petbnb.services.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,6 +57,24 @@ public class BookingController {
                 ))
                 .toList();
     }
+
+    @PutMapping("/{bookingId}")
+    public Booking updateBooking(
+            @PathVariable Long bookingId,
+            @RequestBody @Validated UpdateBookingDTO dto,
+            BindingResult validation,
+            @AuthenticationPrincipal User currentUser
+    ) {
+        if (validation.hasErrors()) {
+            List<String> errors = validation.getFieldErrors().stream()
+                    .map(f -> f.getDefaultMessage())
+                    .toList();
+            throw new ValidationException(errors);
+        }
+
+        return bookingService.updateBooking(bookingId, currentUser, dto);
+    }
+
 
     @GetMapping("/host")
     @PreAuthorize("hasRole('HOST')")

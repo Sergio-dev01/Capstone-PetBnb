@@ -12,9 +12,6 @@ function LandingPage() {
         <Link to="/login" className="btn btn-primary mx-2">
           Login
         </Link>
-        <Link to="/welcome" className="btn btn-secondary mt-3">
-          Torna alla Welcome
-        </Link>
       </div>
     </div>
   );
