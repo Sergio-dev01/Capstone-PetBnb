@@ -13,6 +13,7 @@ import HostBookingsPage from "./components/HostBookingPage";
 import AddLocationPage from "./components/AddLocationPage";
 import LocationDetailPage from "./components/LocationDetailPage";
 import WelcomePage from "./components/WelcomePage";
+import Logout from "./components/Logout";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/host/bookings" element={<HostBookingsPage />} />
           <Route path="/locations/add" element={<AddLocationPage />} />
           <Route path="/locations/:id" element={<LocationDetailPage />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<div>Pagina non trovata</div>} />
         </Routes>
       </div>

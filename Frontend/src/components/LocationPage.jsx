@@ -35,29 +35,31 @@ export default function LocationPage() {
   }, []);
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Locations</h2>
-      <ul className="list-group">
-        {locations.length === 0 ? (
-          <li className="list-group-item">Nessuna location trovata</li>
-        ) : (
-          locations.map((loc) => (
-            <li key={loc.id} className="list-group-item">
-              <Link to={`/locations/${loc.id}`} className="text-decoration-none">
-                <h5>
-                  {loc.nome} - {loc.citta}
-                </h5>
-                <p>
-                  {loc.descrizione} — €{loc.prezzoPerNotte}
-                </p>
-              </Link>
-            </li>
-          ))
-        )}
-      </ul>
-      <Link to="/welcome" className="btn btn-secondary mt-3">
-        Torna alla Home
-      </Link>
+      <div className="text-center">
+        <ul className="list-group">
+          {locations.length === 0 ? (
+            <li className="list-group-item">Nessuna location trovata</li>
+          ) : (
+            locations.map((loc) => (
+              <li key={loc.id} className="list-group-item">
+                <Link to={`/locations/${loc.id}`} className="text-decoration-none">
+                  <h5>
+                    {loc.nome} - {loc.citta}
+                  </h5>
+                  <p>
+                    {loc.descrizione} — €{loc.prezzoPerNotte}
+                  </p>
+                </Link>
+              </li>
+            ))
+          )}
+        </ul>
+        <Link to="/welcome" className="btn btn-secondary mt-3">
+          Torna alla Home
+        </Link>
+      </div>
     </div>
   );
 }

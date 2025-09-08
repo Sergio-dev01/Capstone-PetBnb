@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-// Custom hook semplice per leggere dati da localStorage
+// Custom hook per leggere dati da localStorage
 function useLocalStorage(key) {
   const [storedValue, setStoredValue] = useState(() => {
     try {
@@ -14,7 +14,6 @@ function useLocalStorage(key) {
   });
 
   useEffect(() => {
-    // Se vuoi sincronizzare anche quando cambia localStorage da altre tab
     function syncStorage(event) {
       if (event.key === key) {
         try {
@@ -43,33 +42,46 @@ function Navbar() {
 
   return (
     <nav className="navbar navbar-expand navbar-light bg-light mb-3">
-      <div className="container">
-        <Link to="/welcome" className="navbar-brand">
-          PetBnb
-        </Link>
-        <Link to="/locations" className="nav-link">
-          Locations
-        </Link>
-
-        {role === "USER" && (
-          <Link to="/bookings" className="nav-link">
-            Le mie Prenotazioni
+      <div className="container d-flex justify-content-between align-items-center">
+        <div className="d-flex gap-3 align-items-center">
+          <Link to="/welcome" className="navbar-brand">
+            PetBnb
           </Link>
-        )}
+          <Link to="/locations" className="nav-link">
+            Locations
+          </Link>
 
-        {role === "HOST" && (
-          <>
-            <Link to="/locations/add" className="nav-link">
-              + Location
+          {role === "USER" && (
+            <Link to="/bookings" className="nav-link">
+              Le mie Prenotazioni
             </Link>
-            <Link to="/host/bookings" className="nav-link">
-              Prenotazioni Host
-            </Link>
-          </>
-        )}
-        <Link to="/users/me" className="nav-link">
-          Profilo
-        </Link>
+          )}
+
+          {role === "HOST" && (
+            <>
+              <Link to="/locations/add" className="nav-link">
+                + Location
+              </Link>
+              <Link to="/host/bookings" className="nav-link">
+                Prenotazioni Host
+              </Link>
+            </>
+          )}
+        </div>
+
+        <div className="ms-auto d-flex align-items-center gap-3">
+          {user && (
+            <>
+              <span className="text-muted">Ciao, {user.username}</span>
+              <Link to="/users/me" className="nav-link">
+                Profilo
+              </Link>
+              <Link to="/logout" className="btn btn-outline-danger btn-sm">
+                Logout
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );
