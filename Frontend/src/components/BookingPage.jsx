@@ -71,6 +71,28 @@ function BookingPage() {
     }
   };
 
+  const handleDelete = async (bookingId) => {
+    if (!window.confirm("Sei sicuro di voler cancellare questa prenotazione?")) return;
+
+    try {
+      const response = await fetch(`http://localhost:3001/bookings/${bookingId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "Errore durante la cancellazione");
+      }
+
+      fetchBookings();
+    } catch (err) {
+      setErrorMsg(err.message);
+    }
+  };
+
   return (
     <div className="container mt-4">
       <h2>Le mie Prenotazioni</h2>
@@ -102,6 +124,9 @@ function BookingPage() {
                     <button className="btn btn-secondary btn-sm" onClick={handleCancelEdit}>
                       Annulla
                     </button>
+                    <button className="btn btn-danger btn-sm ms-auto" onClick={() => handleDelete(b.bookingId)}>
+                      Elimina
+                    </button>
                   </div>
                 </>
               ) : (
@@ -109,9 +134,14 @@ function BookingPage() {
                   <p>
                     Dal {b.startDate} al {b.endDate}
                   </p>
-                  <button className="btn btn-primary btn-sm" onClick={() => handleEditClick(b)}>
-                    Modifica
-                  </button>
+                  <div className="d-flex gap-2">
+                    <button className="btn btn-primary btn-sm" onClick={() => handleEditClick(b)}>
+                      Modifica
+                    </button>
+                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(b.bookingId)}>
+                      Elimina
+                    </button>
+                  </div>
                 </>
               )}
             </li>
