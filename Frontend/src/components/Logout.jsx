@@ -6,7 +6,7 @@ function Logout() {
 
   useEffect(() => {
     localStorage.removeItem("accessToken");
-    navigate("/login");
+    navigate("/");
   }, [navigate]);
 
   return null;
