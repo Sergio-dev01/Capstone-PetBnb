@@ -12,6 +12,7 @@ import BookingPage from "./components/BookingPage";
 import HostBookingsPage from "./components/HostBookingPage";
 import AddLocationPage from "./components/AddLocationPage";
 import LocationDetailPage from "./components/LocationDetailPage";
+import HostLocationsPage from "./components/HostLocationsPage";
 import WelcomePage from "./components/WelcomePage";
 import Logout from "./components/Logout";
 
@@ -31,6 +32,8 @@ function App() {
         <Route path="/host/bookings" element={<HostBookingsPage />} />
         <Route path="/locations/add" element={<AddLocationPage />} />
         <Route path="/locations/:id" element={<LocationDetailPage />} />
+        <Route path="/host/locations" element={<HostLocationsPage />} />
+
         <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<div>Pagina non trovata</div>} />
       </Routes>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "../css/UserPage.css";
 
 function UserPage() {
   const [user, setUser] = useState(null);
@@ -98,75 +99,78 @@ function UserPage() {
 
   return (
     <div className="container mt-4">
-      <h2>Profilo Utente</h2>
+      <div className="user-container">
+        <h2 className="user-title">Profilo Utente</h2>
 
-      {!isEditing && (
-        <>
-          <ul className="list-group mb-4">
-            <li className="list-group-item">
-              <strong>ID:</strong> {user.id}
-            </li>
-            <li className="list-group-item">
-              <strong>Username:</strong> {user.username}
-            </li>
-            <li className="list-group-item">
-              <strong>Email:</strong> {user.email}
-            </li>
-            <li className="list-group-item">
-              <strong>Ruolo:</strong> {user.role}
-            </li>
-          </ul>
+        {!isEditing && (
+          <>
+            <ul className="list-group user-list">
+              <li>
+                <strong>ID:</strong> {user.id}
+              </li>
+              <li>
+                <strong>Username:</strong> {user.username}
+              </li>
+              <li>
+                <strong>Email:</strong> {user.email}
+              </li>
+              <li>
+                <strong>Ruolo:</strong> {user.role}
+              </li>
+            </ul>
 
-          <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
-            Modifica Profilo
-          </button>
-
-          <Link to="/welcome" className="btn btn-secondary ms-2">
-            Torna alla Home
-          </Link>
-        </>
-      )}
-
-      {isEditing && (
-        <>
-          <h4 className="mt-4">Modifica Profilo</h4>
-          {successMsg && <div className="alert alert-success">{successMsg}</div>}
-          {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
-
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label className="form-label">Username</label>
-              <input type="text" name="username" className="form-control" value={formData.username} onChange={handleChange} required />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Email</label>
-              <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">Nuova Password (facoltativa)</label>
-              <input
-                type="password"
-                name="password"
-                className="form-control"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Lascia vuoto se non vuoi cambiarla"
-              />
-            </div>
-
-            <div className="d-flex gap-2">
-              <button type="submit" className="btn btn-success">
-                Salva modifiche
+            <div className="user-buttons">
+              <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
+                Modifica Profilo
               </button>
-              <button type="button" className="btn btn-secondary" onClick={handleCancel}>
-                Annulla
-              </button>
+              <Link to="/welcome" className="btn btn-secondary">
+                Torna alla Home
+              </Link>
             </div>
-          </form>
-        </>
-      )}
+          </>
+        )}
+
+        {isEditing && (
+          <>
+            <h4 className="mt-4 mb-3">Modifica Profilo</h4>
+            {successMsg && <div className="alert alert-success">{successMsg}</div>}
+            {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
+
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label user-form-label">Username</label>
+                <input type="text" name="username" className="form-control" value={formData.username} onChange={handleChange} required />
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label user-form-label">Email</label>
+                <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label user-form-label">Nuova Password (facoltativa)</label>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Lascia vuoto se non vuoi cambiarla"
+                />
+              </div>
+
+              <div className="user-buttons">
+                <button type="submit" className="btn btn-success">
+                  Salva modifiche
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                  Annulla
+                </button>
+              </div>
+            </form>
+          </>
+        )}
+      </div>
     </div>
   );
 }
