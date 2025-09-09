@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "../css/Navbar.css";
 
 // Custom hook per leggere dati da localStorage
 function useLocalStorage(key) {
@@ -43,10 +44,11 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div className="navbar-links">
+        <div className="navbar-content">
           <Link to="/welcome" className="navbar-brand">
             PetBnb
           </Link>
+
           <Link to="/locations" className="navbar-link">
             Locations
           </Link>
@@ -67,12 +69,9 @@ function Navbar() {
               </Link>
             </>
           )}
-        </div>
 
-        <div className="navbar-profile">
           {user && (
             <>
-              <span className="navbar-username">Ciao, {user.username}</span>
               <Link to="/users/me" className="navbar-link">
                 Profilo
               </Link>

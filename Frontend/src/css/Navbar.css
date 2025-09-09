@@ -1,30 +1,42 @@
-/* Navbar container */
 .navbar {
-  background-color: #2c3e50; /* Grigio scuro */
+  background-color: #2c3e50;
   padding: 0.8rem 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 1000;
+  position: sticky;
+  top: 0;
 }
 
-/* Centrare il contenuto della navbar */
 .navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
-/* Link di navigazione */
-.navbar-links {
+.navbar-content {
   display: flex;
-  gap: 1.5rem;
+  justify-content: space-evenly;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-/* Stile per ogni link */
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ecf0f1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #8e44ad;
+}
+
 .navbar-link {
-  color: #ecf0f1; /* Testo chiaro */
+  color: #ecf0f1;
   font-size: 1.1rem;
   padding: 8px 16px;
   border-radius: 4px;
@@ -32,46 +44,15 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Hover per i link */
 .navbar-link:hover {
-  background-color: #3498db; /* Colore blu per hover */
-  color: #fff; /* Colore bianco al passaggio del mouse */
+  background-color: #3498db;
+  color: #ffffff;
 }
 
-/* Logo della navbar */
-.navbar-brand {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #ecf0f1;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: color 0.3s ease;
-  text-decoration: none;
-}
-
-.navbar-brand:hover {
-  color: #8e44ad; /* Colore viola per hover */
-}
-
-/* Sezione del profilo */
-.navbar-profile {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-left: auto;
-}
-
-/* Nome utente */
-.navbar-username {
-  color: #bdc3c7;
-  font-size: 1rem;
-}
-
-/* Bottone di logout */
 .navbar-logout {
-  color: #e74c3c; /* Rosso tenue per logout */
+  color: #e74c3c;
   border-color: #e74c3c;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   padding: 6px 12px;
   border-radius: 50px;
   background-color: transparent;
@@ -88,4 +69,20 @@
 
 .navbar-logout:focus {
   outline: none;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .navbar-content {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .navbar-link,
+  .navbar-logout,
+  .navbar-brand {
+    width: 100%;
+    text-align: center;
+  }
 }
