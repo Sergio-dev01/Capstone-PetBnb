@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "../css/BookingPage.css";
 
 function BookingPage() {
   const [bookings, setBookings] = useState([]);
@@ -149,9 +150,11 @@ function BookingPage() {
         )}
       </ul>
 
-      <Link to="/welcome" className="btn btn-secondary mt-3">
-        Torna alla Home
-      </Link>
+      <div className="text-center">
+        <Link to="/welcome" className="btn btn-secondary mt-3">
+          Torna alla Home
+        </Link>
+      </div>
     </div>
   );
 }
