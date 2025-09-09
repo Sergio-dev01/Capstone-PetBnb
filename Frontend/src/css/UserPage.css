@@ -1,0 +1,44 @@
+.user-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.user-title {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.user-list {
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.user-list li {
+  border: none;
+  border-bottom: 1px solid #eee;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  color: #34495e;
+}
+
+.user-form-label {
+  font-weight: 600;
+  color: #34495e;
+}
+
+.user-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.btn + .btn {
+  margin-left: 0.5rem;
+}
