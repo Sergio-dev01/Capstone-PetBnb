@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import "../css/LocationDetailPage.css";
 
 export default function LocationDetailPage() {
   const { id } = useParams();
@@ -7,6 +8,7 @@ export default function LocationDetailPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [bookingDates, setBookingDates] = useState({ startDate: "", endDate: "" });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -38,34 +40,53 @@ export default function LocationDetailPage() {
   if (!location) return <p>Nessuna location trovata.</p>;
 
   return (
-    <div className="container mt-4">
-      <h2>{location.nome}</h2>
-      <p>
-        <strong>Città:</strong> {location.citta}
-      </p>
-      <p>
-        <strong>Indirizzo:</strong> {location.indirizzo}
-      </p>
-      <p>
-        <strong>Descrizione:</strong> {location.descrizione}
-      </p>
-      <p>
-        <strong>Prezzo per notte:</strong> €{location.prezzoPerNotte}
-      </p>
-
-      <div className="mt-3">
-        <h4>Prenota ora</h4>
-        <label>
-          Data inizio:
-          <input type="date" name="startDate" className="form-control mb-2" onChange={(e) => setBookingDates({ ...bookingDates, startDate: e.target.value })} />
-        </label>
-        <label>
-          Data fine:
-          <input type="date" name="endDate" className="form-control mb-2" onChange={(e) => setBookingDates({ ...bookingDates, endDate: e.target.value })} />
-        </label>
-        <button className="btn btn-primary" onClick={handleBooking}>
-          Prenota
-        </button>
+    <div className="container mt-5">
+      <div className="location-detail-card">
+        <div className="location-image-wrapper">
+          <img src={location.immagineUrl ? `/images/${location.immagineUrl}` : "/images/placeholder.jpg"} alt={location.nome} className="location-image" />
+        </div>
+        <div className="location-info">
+          <h2 className="location-title">{location.nome}</h2>
+          <p>
+            <strong>Città:</strong> {location.citta}
+          </p>
+          <p>
+            <strong>Indirizzo:</strong> {location.indirizzo}
+          </p>
+          <p className="location-description">{location.descrizione}</p>
+          <p className="location-price">
+            <strong>Prezzo per notte:</strong> €{location.prezzoPerNotte}
+          </p>
+        </div>
+        <div className="location-booking">
+          <h3>Prenota ora</h3>
+          <label>
+            Data inizio:
+            <input
+              type="date"
+              name="startDate"
+              className="form-control"
+              value={bookingDates.startDate}
+              onChange={(e) => setBookingDates({ ...bookingDates, startDate: e.target.value })}
+            />
+          </label>
+          <label>
+            Data fine:
+            <input
+              type="date"
+              name="endDate"
+              className="form-control"
+              value={bookingDates.endDate}
+              onChange={(e) => setBookingDates({ ...bookingDates, endDate: e.target.value })}
+            />
+          </label>
+          <button className="btn btn-primary booking-btn" onClick={handleBooking}>
+            Prenota
+          </button>
+          <button className="back-button" onClick={() => navigate(-1)}>
+            Torna indietro
+          </button>
+        </div>
       </div>
     </div>
   );
