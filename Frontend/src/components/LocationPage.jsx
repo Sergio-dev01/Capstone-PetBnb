@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "../css/LocationPage.css";
 
 export default function LocationPage() {
   const [locations, setLocations] = useState([]);
@@ -35,28 +36,33 @@ export default function LocationPage() {
   }, []);
 
   return (
-    <div className="container mt-4">
-      <h2>Locations</h2>
-      <div className="text-center">
-        <ul className="list-group">
-          {locations.length === 0 ? (
-            <li className="list-group-item">Nessuna location trovata</li>
-          ) : (
-            locations.map((loc) => (
-              <li key={loc.id} className="list-group-item">
-                <Link to={`/locations/${loc.id}`} className="text-decoration-none">
-                  <h5>
-                    {loc.nome} - {loc.citta}
-                  </h5>
-                  <p>
-                    {loc.descrizione} — €{loc.prezzoPerNotte}
-                  </p>
-                </Link>
-              </li>
-            ))
-          )}
-        </ul>
-        <Link to="/welcome" className="btn btn-secondary mt-3">
+    <div className="locations-page">
+      <h2 className="locations-title">Locations disponibili</h2>
+
+      {locations.length === 0 ? (
+        <p className="no-locations">Nessuna location trovata</p>
+      ) : (
+        <div className="locations-grid">
+          {locations.map((loc) => (
+            <div key={loc.id} className="location-card">
+              <Link to={`/locations/${loc.id}`} className="location-link">
+                <div className="location-image">
+                  <img src="../images/placeholder.jpg" alt={loc.nome} />
+                </div>
+                <div className="location-content">
+                  <h3>{loc.nome}</h3>
+                  <p className="location-city">{loc.citta}</p>
+                  <p className="location-desc">{loc.descrizione}</p>
+                  <p className="location-price">€{loc.prezzoPerNotte} / notte</p>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="back-home">
+        <Link to="/welcome" className="btn-back">
           Torna alla Home
         </Link>
       </div>
