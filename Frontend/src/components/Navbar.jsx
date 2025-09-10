@@ -62,10 +62,10 @@ function Navbar() {
           {role === "HOST" && (
             <>
               <Link to="/locations/add" className="navbar-link">
-                Location
+                Aggiungi Location
               </Link>
               <Link to="/host/bookings" className="navbar-link">
-                Prenotazioni Host
+                Prenotazioni Ricevute
               </Link>
               <Link to="/host/locations" className="navbar-link">
                 Le mie Location
