@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/UserPage.css";
+import { FaUser, FaEnvelope, FaKey, FaIdBadge, FaUserEdit, FaArrowLeft } from "react-icons/fa";
 
 function UserPage() {
   const [user, setUser] = useState(null);
@@ -106,24 +107,30 @@ function UserPage() {
           <>
             <ul className="list-group user-list">
               <li>
+                <FaIdBadge className="me-2 text-primary" />
                 <strong>ID:</strong> {user.id}
               </li>
               <li>
+                <FaUser className="me-2 text-primary" />
                 <strong>Username:</strong> {user.username}
               </li>
               <li>
+                <FaEnvelope className="me-2 text-primary" />
                 <strong>Email:</strong> {user.email}
               </li>
               <li>
+                <FaUser className="me-2 text-primary" />
                 <strong>Ruolo:</strong> {user.role}
               </li>
             </ul>
 
-            <div className="user-buttons">
-              <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
+            <div className="user-buttons mt-4">
+              <button className="btn btn-primary me-2" onClick={() => setIsEditing(true)}>
+                <FaUserEdit className="me-1" />
                 Modifica Profilo
               </button>
               <Link to="/welcome" className="btn btn-secondary">
+                <FaArrowLeft className="me-1" />
                 Torna alla Home
               </Link>
             </div>
@@ -132,23 +139,35 @@ function UserPage() {
 
         {isEditing && (
           <>
-            <h4 className="mt-4 mb-3">Modifica Profilo</h4>
+            <h4 className="mt-4 mb-3">
+              <FaUserEdit className="me-2" />
+              Modifica Profilo
+            </h4>
             {successMsg && <div className="alert alert-success">{successMsg}</div>}
             {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
 
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label className="form-label user-form-label">Username</label>
+                <label className="form-label user-form-label">
+                  <FaUser className="me-1" />
+                  Username
+                </label>
                 <input type="text" name="username" className="form-control" value={formData.username} onChange={handleChange} required />
               </div>
 
               <div className="mb-3">
-                <label className="form-label user-form-label">Email</label>
+                <label className="form-label user-form-label">
+                  <FaEnvelope className="me-1" />
+                  Email
+                </label>
                 <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
               </div>
 
               <div className="mb-3">
-                <label className="form-label user-form-label">Nuova Password (facoltativa)</label>
+                <label className="form-label user-form-label">
+                  <FaKey className="me-1" />
+                  Nuova Password (facoltativa)
+                </label>
                 <input
                   type="password"
                   name="password"
@@ -160,7 +179,7 @@ function UserPage() {
               </div>
 
               <div className="user-buttons">
-                <button type="submit" className="btn btn-success">
+                <button type="submit" className="btn btn-success me-2">
                   Salva modifiche
                 </button>
                 <button type="button" className="btn btn-secondary" onClick={handleCancel}>

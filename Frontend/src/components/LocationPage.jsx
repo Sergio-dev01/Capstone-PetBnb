@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/LocationPage.css";
+import { FaMapMarkerAlt, FaEuroSign } from "react-icons/fa";
 
-export default function LocationPage() {
+function LocationPage() {
   const [locations, setLocations] = useState([]);
   const [cityFilter, setCityFilter] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
@@ -65,9 +66,15 @@ export default function LocationPage() {
                 </div>
                 <div className="location-content">
                   <h3>{loc.nome}</h3>
-                  <p className="location-city">{loc.citta}</p>
+                  <p className="location-city">
+                    <FaMapMarkerAlt style={{ marginRight: "6px", color: "#ff6f61" }} />
+                    {loc.citta}
+                  </p>
                   <p className="location-desc">{loc.descrizione}</p>
-                  <p className="location-price">€{loc.prezzoPerNotte} / notte</p>
+                  <p className="location-price">
+                    <FaEuroSign style={{ marginRight: "6px", color: "#28a745" }} />
+                    {loc.prezzoPerNotte} / notte
+                  </p>
                 </div>
               </Link>
             </div>
@@ -83,3 +90,5 @@ export default function LocationPage() {
     </div>
   );
 }
+
+export default LocationPage;

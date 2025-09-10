@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/WelcomePage.css";
+import { FaMapMarkerAlt, FaCalendarAlt, FaUsers } from "react-icons/fa";
 
 function WelcomePage() {
   const [user, setUser] = useState(null);
@@ -29,15 +30,20 @@ function WelcomePage() {
       <p className="lead mt-3 role-description">
         Ruolo: <strong>{user.role}</strong>
       </p>
-      <p className="mt-4">Scopri le nostre locations o gestisci le tue attività.</p>
+      <p className="mt-4">
+        <FaMapMarkerAlt className="me-2 text-primary" />
+        Scopri le nostre locations o gestisci le tue attività.
+      </p>
 
       <div className="button-group mt-5">
         <Link to="/locations" className="btn btn-outline-primary btn-lg me-3">
+          <FaMapMarkerAlt className="me-2" />
           Esplora Locations
         </Link>
 
         {user.role === "USER" && (
           <Link to="/bookings" className="btn btn-outline-primary btn-lg">
+            <FaCalendarAlt className="me-2" />
             Le mie Prenotazioni
           </Link>
         )}
@@ -45,14 +51,17 @@ function WelcomePage() {
         {user.role === "HOST" && (
           <>
             <Link to="/locations/add" className="btn btn-success btn-lg me-3">
+              <FaUsers className="me-2" />
               Aggiungi Location
             </Link>
             <Link to="/host/bookings" className="btn btn-outline-success btn-lg">
+              <FaCalendarAlt className="me-2" />
               Prenotazioni Ricevute
             </Link>
           </>
         )}
       </div>
+
       <div className="mt-5">
         <h3 className="mb-4">Scopri PetBnB 🐾</h3>
 
