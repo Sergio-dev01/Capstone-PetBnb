@@ -86,6 +86,32 @@ p {
   color: white;
   box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
 }
+.carousel-inner img {
+  max-height: 400px;
+  object-fit: cover;
+}
+
+.welcome-title {
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.role-description {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.carousel-caption h5,
+.carousel-caption p {
+  color: #fff;
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.932);
+}
 
 /* Media queries per dispositivi mobili */
 @media (max-width: 768px) {
