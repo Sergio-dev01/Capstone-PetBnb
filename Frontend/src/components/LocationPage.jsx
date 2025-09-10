@@ -4,6 +4,8 @@ import "../css/LocationPage.css";
 
 export default function LocationPage() {
   const [locations, setLocations] = useState([]);
+  const [cityFilter, setCityFilter] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -35,15 +37,27 @@ export default function LocationPage() {
       });
   }, []);
 
+  const filteredLocations = locations.filter((loc) => {
+    const matchesCity = loc.citta.toLowerCase().includes(cityFilter.toLowerCase());
+    const matchesPrice = priceFilter === "" || loc.prezzoPerNotte <= parseFloat(priceFilter);
+    return matchesCity && matchesPrice;
+  });
+
   return (
     <div className="locations-page">
       <h2 className="locations-title">Locations disponibili</h2>
 
-      {locations.length === 0 ? (
+      <div className="filters">
+        <input type="text" placeholder="Filtra per città" value={cityFilter} onChange={(e) => setCityFilter(e.target.value)} className="filter-input" />
+
+        <input type="number" placeholder="Prezzo massimo" value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)} className="filter-input" />
+      </div>
+
+      {filteredLocations.length === 0 ? (
         <p className="no-locations">Nessuna location trovata</p>
       ) : (
         <div className="locations-grid">
-          {locations.map((loc) => (
+          {filteredLocations.map((loc) => (
             <div key={loc.id} className="location-card">
               <Link to={`/locations/${loc.id}`} className="location-link">
                 <div className="location-image">
