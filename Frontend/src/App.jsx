@@ -15,28 +15,34 @@ import LocationDetailPage from "./components/LocationDetailPage";
 import HostLocationsPage from "./components/HostLocationsPage";
 import WelcomePage from "./components/WelcomePage";
 import Logout from "./components/Logout";
+import MyFooter from "./components/MyFooter";
 
 function App() {
   return (
     <Router>
-      <Navbar />
+      <div className="app-wrapper">
+        <Navbar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/welcome" element={<WelcomePage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/users/me" element={<UserPage />} />
+            <Route path="/locations" element={<LocationPage />} />
+            <Route path="/bookings" element={<BookingPage />} />
+            <Route path="/host/bookings" element={<HostBookingsPage />} />
+            <Route path="/locations/add" element={<AddLocationPage />} />
+            <Route path="/locations/:id" element={<LocationDetailPage />} />
+            <Route path="/host/locations" element={<HostLocationsPage />} />
 
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/welcome" element={<WelcomePage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/users/me" element={<UserPage />} />
-        <Route path="/locations" element={<LocationPage />} />
-        <Route path="/bookings" element={<BookingPage />} />
-        <Route path="/host/bookings" element={<HostBookingsPage />} />
-        <Route path="/locations/add" element={<AddLocationPage />} />
-        <Route path="/locations/:id" element={<LocationDetailPage />} />
-        <Route path="/host/locations" element={<HostLocationsPage />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="*" element={<div>Pagina non trovata</div>} />
+          </Routes>
+        </div>
 
-        <Route path="/logout" element={<Logout />} />
-        <Route path="*" element={<div>Pagina non trovata</div>} />
-      </Routes>
+        <MyFooter />
+      </div>
     </Router>
   );
 }
