@@ -9,15 +9,17 @@ function MyFooter() {
     <footer className="footer bg-dark text-light py-5 mt-auto">
       <div className="container">
         <div className="row gy-4">
-          <div className="col-md-4">
-            <div className="d-flex align-items-center mb-3">
-              <FaPaw className="me-2 text-warning fs-3" />
+          <div className="col-md-4 text-center">
+            <div className="d-flex align-items-center mb-3 justify-content-center">
+              <span>
+                <img src="./public/Petbnb.png" alt="" />
+              </span>
               <span className="footer-brand">PetBnB</span>
             </div>
             <p className="footer-description">Viaggia senza pensieri insieme al tuo fedele amico a quattro zampe. 🐾</p>
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-4 text-center ">
             <h6 className="footer-title">Link Utili</h6>
             <ul className="list-unstyled footer-links">
               <li>
@@ -43,9 +45,9 @@ function MyFooter() {
             </ul>
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-4 text-center ">
             <h6 className="footer-title">Seguici</h6>
-            <div className="d-flex gap-3">
+            <div className="d-flex gap-3 justify-content-center">
               <a href="https://facebook.com" className="footer-icon" aria-label="Facebook">
                 <FaFacebookF />
               </a>

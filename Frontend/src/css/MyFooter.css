@@ -12,10 +12,16 @@
   color: #fff;
 }
 
+span img {
+  height: 60px;
+  width: auto;
+}
+
 .footer-description {
   color: #aaa;
   line-height: 1.4;
   font-size: 1rem;
+  margin-left: 15px;
 }
 
 .footer-title {
