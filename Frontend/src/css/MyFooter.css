@@ -1,0 +1,53 @@
+.footer {
+  background-color: #1f1f1f;
+  color: #ddd;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.footer-brand {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.footer-description {
+  color: #aaa;
+  line-height: 1.4;
+  font-size: 1rem;
+}
+
+.footer-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #f8c146;
+}
+
+.footer-link {
+  display: block;
+  color: #ccc;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-icon {
+  color: #ccc;
+  font-size: 1.4rem;
+  transition: color 0.3s ease;
+}
+
+.footer-icon:hover {
+  color: #f8c146;
+}
+
+.footer-divider {
+  border-top: 1px solid #444;
+}
