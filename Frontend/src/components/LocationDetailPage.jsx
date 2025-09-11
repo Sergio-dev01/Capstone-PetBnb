@@ -9,9 +9,15 @@ export default function LocationDetailPage() {
   const [loading, setLoading] = useState(true);
   const [bookingDates, setBookingDates] = useState({ startDate: "", endDate: "" });
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
     const token = localStorage.getItem("accessToken");
+
     fetch(`http://localhost:3001/locations/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -58,35 +64,37 @@ export default function LocationDetailPage() {
             <strong>Prezzo per notte:</strong> €{location.prezzoPerNotte}
           </p>
         </div>
-        <div className="location-booking">
-          <h3>Prenota ora</h3>
-          <label>
-            Data inizio:
-            <input
-              type="date"
-              name="startDate"
-              className="form-control"
-              value={bookingDates.startDate}
-              onChange={(e) => setBookingDates({ ...bookingDates, startDate: e.target.value })}
-            />
-          </label>
-          <label>
-            Data fine:
-            <input
-              type="date"
-              name="endDate"
-              className="form-control"
-              value={bookingDates.endDate}
-              onChange={(e) => setBookingDates({ ...bookingDates, endDate: e.target.value })}
-            />
-          </label>
-          <button className="btn btn-primary booking-btn" onClick={handleBooking}>
-            Prenota
-          </button>
-          <button className="back-button" onClick={() => navigate(-1)}>
-            Torna indietro
-          </button>
-        </div>
+        {user?.role !== "HOST" && (
+          <div className="location-booking">
+            <h3>Prenota ora</h3>
+            <label>
+              Data inizio:
+              <input
+                type="date"
+                name="startDate"
+                className="form-control"
+                value={bookingDates.startDate}
+                onChange={(e) => setBookingDates({ ...bookingDates, startDate: e.target.value })}
+              />
+            </label>
+            <label>
+              Data fine:
+              <input
+                type="date"
+                name="endDate"
+                className="form-control"
+                value={bookingDates.endDate}
+                onChange={(e) => setBookingDates({ ...bookingDates, endDate: e.target.value })}
+              />
+            </label>
+            <button className="btn btn-primary booking-btn" onClick={handleBooking}>
+              Prenota
+            </button>
+            <button className="back-button" onClick={() => navigate(-1)}>
+              Torna indietro
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
