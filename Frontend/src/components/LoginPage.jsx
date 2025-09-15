@@ -47,6 +47,10 @@ function LoginPage() {
         })
       );
 
+      // ✅ Notifica la Navbar che l'utente è cambiato
+      window.dispatchEvent(new Event("userChanged"));
+
+      // ✅ Naviga verso la pagina principale
       navigate("/welcome");
     } catch (error) {
       alert("Errore durante il login");

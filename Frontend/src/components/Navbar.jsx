@@ -16,16 +16,23 @@ function useLocalStorage(key) {
 
   useEffect(() => {
     function syncStorage(event) {
-      if (event.key === key) {
+      if (event.key === key || event.type === "userChanged") {
         try {
-          setStoredValue(event.newValue ? JSON.parse(event.newValue) : null);
+          const item = window.localStorage.getItem(key);
+          setStoredValue(item ? JSON.parse(item) : null);
         } catch {
           setStoredValue(null);
         }
       }
     }
+
     window.addEventListener("storage", syncStorage);
-    return () => window.removeEventListener("storage", syncStorage);
+    window.addEventListener("userChanged", syncStorage); // 👈 Aggiunto
+
+    return () => {
+      window.removeEventListener("storage", syncStorage);
+      window.removeEventListener("userChanged", syncStorage);
+    };
   }, [key]);
 
   return [storedValue, setStoredValue];
