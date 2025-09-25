@@ -72,6 +72,9 @@ function LoginPage() {
         <button className="login-button" onClick={handleLogin} disabled={loading}>
           {loading ? "Caricamento..." : "Accedi"}
         </button>
+        <p className="forgot-password">
+          <a href="/forgot-password">Password dimenticata?</a>
+        </p>
       </div>
     </div>
   );

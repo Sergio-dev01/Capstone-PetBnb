@@ -35,7 +35,14 @@ public class BookingService {
             throw new BadRequestException("La data di inizio non può essere dopo la data di fine");
         }
 
-        // aggiungere logica per evitare doppie prenotazioni
+        List<Booking> overlappingBookings = bookingRepository
+                .findByLocationIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
+                        location.getId(), dto.endDate(), dto.startDate());
+
+        if (!overlappingBookings.isEmpty()) {
+            throw new BadRequestException("Le date selezionate sono già occupate per questa location");
+        }
+
 
         Booking booking = new Booking();
         booking.setUser(user);

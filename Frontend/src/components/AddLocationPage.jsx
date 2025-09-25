@@ -44,6 +44,7 @@ function AddLocationPage() {
         <button className="btn btn-success" onClick={handleSubmit}>
           Crea
         </button>
+
         <Link to="/welcome" className="btn btn-secondary mx-2">
           Torna alla Welcome
         </Link>
