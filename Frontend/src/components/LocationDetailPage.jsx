@@ -32,13 +32,29 @@ export default function LocationDetailPage() {
 
   const handleBooking = async () => {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch("http://localhost:3001/bookings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ locationId: parseInt(id), startDate: bookingDates.startDate, endDate: bookingDates.endDate }),
-    });
-    if (res.ok) alert("Prenotazione creata!");
-    else alert("Errore nella prenotazione.");
+    try {
+      const res = await fetch("http://localhost:3001/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          locationId: parseInt(id),
+          startDate: bookingDates.startDate,
+          endDate: bookingDates.endDate,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Errore nella prenotazione.");
+      }
+
+      alert("Prenotazione creata!");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   if (loading) return <p>Loading...</p>;
