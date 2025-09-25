@@ -1,12 +1,15 @@
+/* Layout principale */
 .user-container {
   max-width: 600px;
   margin: 0 auto;
   background: #ffffff;
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
+/* Titolo */
 .user-title {
   text-align: center;
   font-weight: 700;
@@ -14,31 +17,69 @@
   color: #2c3e50;
 }
 
+/* Lista info utente */
 .user-list {
-  border: none;
-  margin-bottom: 1.5rem;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  list-style: none;
 }
 
 .user-list li {
-  border: none;
   border-bottom: 1px solid #eee;
   padding: 0.75rem 0;
   font-size: 1rem;
   color: #34495e;
+  display: flex;
+  align-items: center;
 }
 
+.user-list li svg {
+  margin-right: 0.5rem;
+  color: #3498db;
+}
+
+/* Etichette form */
 .user-form-label {
   font-weight: 600;
   color: #34495e;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
+/* Bottoni */
 .user-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  justify-content: flex-start;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
-.btn + .btn {
-  margin-left: 0.5rem;
+/* Responsive design */
+@media (max-width: 576px) {
+  .user-container {
+    padding: 1.2rem;
+  }
+
+  .user-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .user-buttons .btn {
+    width: 100%;
+  }
+
+  .user-title {
+    font-size: 1.5rem;
+  }
+
+  .user-list li {
+    font-size: 0.95rem;
+  }
+
+  .form-control {
+    font-size: 0.95rem;
+  }
 }

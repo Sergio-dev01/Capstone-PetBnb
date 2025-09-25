@@ -98,12 +98,13 @@ function UserPage() {
     );
   }
 
+  // Solo modifiche al layout/markup
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 user-page">
       <div className="user-container">
         <h2 className="user-title">Profilo Utente</h2>
 
-        {!isEditing && (
+        {!isEditing ? (
           <>
             <ul className="list-group user-list">
               <li>
@@ -124,8 +125,8 @@ function UserPage() {
               </li>
             </ul>
 
-            <div className="user-buttons mt-4">
-              <button className="btn btn-primary me-2" onClick={() => setIsEditing(true)}>
+            <div className="user-buttons">
+              <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
                 <FaUserEdit className="me-1" />
                 Modifica Profilo
               </button>
@@ -135,9 +136,7 @@ function UserPage() {
               </Link>
             </div>
           </>
-        )}
-
-        {isEditing && (
+        ) : (
           <>
             <h4 className="mt-4 mb-3">
               <FaUserEdit className="me-2" />
@@ -147,7 +146,7 @@ function UserPage() {
             {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
 
             <form onSubmit={handleSubmit}>
-              <div className="mb-3">
+              <div className="form-group mb-3">
                 <label className="form-label user-form-label">
                   <FaUser className="me-1" />
                   Username
@@ -155,7 +154,7 @@ function UserPage() {
                 <input type="text" name="username" className="form-control" value={formData.username} onChange={handleChange} required />
               </div>
 
-              <div className="mb-3">
+              <div className="form-group mb-3">
                 <label className="form-label user-form-label">
                   <FaEnvelope className="me-1" />
                   Email
@@ -163,7 +162,7 @@ function UserPage() {
                 <input type="email" name="email" className="form-control" value={formData.email} onChange={handleChange} required />
               </div>
 
-              <div className="mb-3">
+              <div className="form-group mb-4">
                 <label className="form-label user-form-label">
                   <FaKey className="me-1" />
                   Nuova Password (facoltativa)
@@ -179,7 +178,7 @@ function UserPage() {
               </div>
 
               <div className="user-buttons">
-                <button type="submit" className="btn btn-success me-2">
+                <button type="submit" className="btn btn-success">
                   Salva modifiche
                 </button>
                 <button type="button" className="btn btn-secondary" onClick={handleCancel}>

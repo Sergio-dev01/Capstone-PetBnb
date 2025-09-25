@@ -105,7 +105,7 @@ function BookingPage() {
           <li className="list-group-item">Nessuna prenotazione trovata</li>
         ) : (
           bookings.map((b) => (
-            <li key={b.bookingId} className="list-group-item">
+            <li key={b.bookingId} className="list-group-item d-flex flex-column">
               <h5>{b.locationName}</h5>
 
               {editingBookingId === b.bookingId ? (
@@ -135,7 +135,7 @@ function BookingPage() {
                   <p>
                     Dal {b.startDate} al {b.endDate}
                   </p>
-                  <div className="d-flex gap-2">
+                  <div className="d-flex justi gap-2">
                     <button className="btn btn-primary btn-sm" onClick={() => handleEditClick(b)}>
                       Modifica
                     </button>
@@ -150,8 +150,8 @@ function BookingPage() {
         )}
       </ul>
 
-      <div className="text-center">
-        <Link to="/welcome" className="btn btn-secondary mt-3">
+      <div className="text-center mb-4">
+        <Link to="/welcome" className="btn btn-warning mt-3">
           Torna alla Home
         </Link>
       </div>

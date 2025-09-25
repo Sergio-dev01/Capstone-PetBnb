@@ -6,7 +6,7 @@
 }
 
 h2 {
-  text-align: center;
+  text-align: start;
   margin-bottom: 1.5rem;
   color: #2c3e50;
   font-weight: 700;
@@ -130,4 +130,16 @@ h2 {
   margin-bottom: 1rem;
   font-weight: 600;
   text-align: center;
+}
+@media (max-width: 1024px) {
+  .list-group-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .button-center {
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
 }
