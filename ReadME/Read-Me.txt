@@ -1,74 +1,92 @@
-🐾 PetBnB
+📌 PetBnB – Descrizione del Progetto
 
-PetBnB è una piattaforma web pensata per aiutare i proprietari di animali domestici a trovare facilmente strutture o host dove lasciare il proprio animale durante le vacanze o le trasferte, proprio come un Airbnb... ma per animali!
+PetBnB è un’applicazione web full-stack ispirata al modello di Airbnb, pensata per mettere in contatto proprietari di animali domestici con host disposti ad ospitare animali nelle loro strutture.
+Il sistema gestisce registrazioni utenti, pubblicazione di location, prenotazioni, ruoli e sicurezza attraverso token JWT.
 
----------------------
+L’obiettivo principale è fornire una piattaforma sicura, scalabile e modulare per la gestione delle strutture pet-friendly, sia lato utente che host.
 
-🚀 Descrizione del Progetto
+🧱 Tecnologie Utilizzate
+Ambito	Tecnologie
+Backend	Java 17, Spring Boot 3
+Sicurezza	Spring Security, JWT (JSON Web Token)
+Persistenza Dati	JPA, Hibernate, H2/PostgreSQL
+Validazioni	Bean Validation (Jakarta), custom exception handling
+Testing (futuro)	JUnit, Mockito (non incluso attualmente)
+Gestione delle eccezioni	@ControllerAdvice, DTO per errori personalizzati
+Build tool	Maven
+🧩 Architettura del progetto
 
-PetBnB permette agli utenti (clienti) di:
-- Registrarsi e accedere alla piattaforma in modo sicuro
-- Visualizzare un elenco di località disponibili pubblicate dagli host
-- Prenotare un soggiorno per il proprio animale domestico
+Modello a tre livelli: Controller → Service → Repository ✔️
 
-Gli host (nella versione successiva) potranno:
-- Registrarsi come struttura ospitante
-- Pubblicare le proprie località
+DTO pattern: per l’input/output tra client e server ✔️
 
----------------------
+Gestione ruoli: USER e HOST gestiti tramite enum e securityConfig ✔️
 
-💡 Funzionalità principali divise in rilasci
+Sicurezza: JWT Token verificati tramite un filtro (OncePerRequestFilter) custom ✔️
 
-v1. Core Features ⇒ Autenticazione, visualizzazione località e prenotazione
+Validazioni: su ogni campo tramite annotazioni standard + messaggi personalizzati ✔️
 
-La prima versione deve includere le funzionalità fondamentali per permettere agli utenti di registrarsi, autenticarsi, vedere le strutture disponibili e prenotare un soggiorno per il proprio animale.
+🚀 Roadmap dei rilasci
+🔹 v1 – Core funzionalità (completata)
 
-v2. Features A, B, C ⇒ Registrazione e profilo cliente, pagina dettagli struttura
+✔️ Completamente funzionante
+✔️ Implementata nella tua versione corrente
 
-La seconda versione aggiunge la registrazione completa del cliente, un’area profilo personale e la pagina con i dettagli specifici della struttura/host (es. descrizione, servizi, recensioni).
+📌 Funzionalità incluse:
 
-v3. Features D, E, F ⇒ Registrazione e gestione host, pubblicazione località
+Registrazione utente con ruolo (USER o HOST) ✔️
 
-La terza versione introduce la registrazione degli host, la possibilità di pubblicare e gestire le proprie strutture, e funzionalità di upload immagini per le località.
+Login e autenticazione tramite JWT ✔️
 
-v4. Features G, H, I ⇒ Pagamenti, notifiche e integrazione comunicazioni
+Creazione e gestione delle location da parte dell'host ✔️
 
-La quarta versione implementa sistemi di pagamento online (es. Stripe), notifiche via email, e integrazione di chat e SMS per facilitare la comunicazione tra clienti e host.
+Visualizzazione delle location pubbliche (per tutti gli utenti) ✔️
 
----------------------
+Prenotazione location da parte degli utenti ✔️
 
-🧰 Tecnologie
+Visualizzazione delle proprie prenotazioni ✔️
 
-Backend
-- Java 
-- Spring Boot
-- Spring Security + JWT
-- PostgreSQL
-- Maven
+Eliminazione delle prenotazioni da parte dell'utente ✔️
 
-Frontend
-- HTML, CSS, Bootstrap
-- JavaScript
-- Vite.js 
+Validazioni su tutti i dati inviati (es. date, prezzi, campi obbligatori) ✔️
 
-Database
-- PostgreSQL (hosted in locale o remoto)
+Gestione delle eccezioni centralizzata (custom exception + error DTO) ✔️
 
----------------------
+🔹 v2 – Estensione UX/UI e dati utente (prossimo step consigliato)
 
-🔐 Autenticazione
+💡 Da implementare
 
-Basata su JWT Token
+📌 Funzionalità previste:
 
-Login e registrazione tramite endpoint REST
+Espansione dei dettagli della location ✔️
 
-Gli endpoint protetti richiedono il token in header:
-Authorization: Bearer <token>
+Endpoint per visualizzare e aggiornare il profilo utente (GET/PUT /users/me)✔️
 
-Accesso a specifici endpoint controllato tramite annotazioni Spring:
+Sezione "Le mie strutture" per l’host ✔️
 
-@PreAuthorize("hasAuthority('USER')") → solo utenti autenticati come clienti
+Filtri di ricerca per location (città, prezzo)✔️
 
-@PreAuthorize("hasAuthority('HOST')") → solo host possono creare/modificare strutture
+🔹 v3 – Upload immagini e gestione avanzata host (parzialmente presente)
 
-Gli utenti ricevono un ruolo al momento della registrazione (USER o HOST) per definire le autorizzazioni
+✔️ Parte delle funzionalità già presenti (es. endpoint host)
+💡 Upload immagini da implementare
+
+📌 Funzionalità previste:
+
+Upload immagini per le strutture (via FileSystem o cloud: AWS S3, Cloudinary…)
+
+Riconoscimento automatico dell’host loggato
+
+Gestione multipla delle immagini per location
+
+🔹 v4 – Pagamenti e notifiche
+
+💡 Fase avanzata (opzionale)
+
+📌 Funzionalità previste:
+
+Integrazione con Stripe o PayPal per prenotazioni reali
+
+Invio notifiche via email (con Mailgun)
+
+Chat tra utente e host (WebSocket o servizi esterni)
