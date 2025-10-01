@@ -6,7 +6,7 @@ import { FaFacebookF, FaInstagram, FaTwitter, FaGithub, FaPaw } from "react-icon
 
 function MyFooter() {
   return (
-    <footer className="footer bg-dark text-light mt-auto">
+    <footer className="footer bg-dark text-light ">
       <div className="container">
         <div className="row gy-4">
           <div className="col-md-4 text-center">
