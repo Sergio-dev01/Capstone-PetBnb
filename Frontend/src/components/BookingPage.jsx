@@ -95,63 +95,59 @@ function BookingPage() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="booking-page">
       <h2>Le mie Prenotazioni</h2>
 
-      {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
+      {errorMsg && <div className="alert">{errorMsg}</div>}
 
-      <ul className="list-group">
-        {bookings.length === 0 ? (
-          <li className="list-group-item">Nessuna prenotazione trovata</li>
-        ) : (
-          bookings.map((b) => (
-            <li key={b.bookingId} className="list-group-item d-flex flex-column">
-              <h5>{b.locationName}</h5>
+      {bookings.length === 0 ? (
+        <p className="no-bookings">Nessuna prenotazione trovata</p>
+      ) : (
+        <div className="bookings-grid">
+          {bookings.map((b) => (
+            <div key={b.bookingId} className="booking-card">
+              <h4>{b.locationName}</h4>
 
               {editingBookingId === b.bookingId ? (
-                <>
-                  <div className="mb-2">
-                    <label className="form-label">Dal:</label>
-                    <input type="date" name="startDate" value={editFormData.startDate} onChange={handleChange} className="form-control" />
-                  </div>
-                  <div className="mb-2">
-                    <label className="form-label">Al:</label>
-                    <input type="date" name="endDate" value={editFormData.endDate} onChange={handleChange} className="form-control" />
-                  </div>
-                  <div className="d-flex gap-2">
-                    <button className="btn btn-success btn-sm" onClick={() => handleUpdate(b.bookingId)}>
+                <div className="edit-form">
+                  <label>Dal:</label>
+                  <input type="date" name="startDate" value={editFormData.startDate} onChange={handleChange} />
+                  <label>Al:</label>
+                  <input type="date" name="endDate" value={editFormData.endDate} onChange={handleChange} />
+                  <div className="buttons-row">
+                    <button className="btn btn-success" onClick={() => handleUpdate(b.bookingId)}>
                       Salva
                     </button>
-                    <button className="btn btn-secondary btn-sm" onClick={handleCancelEdit}>
+                    <button className="btn btn-secondary" onClick={handleCancelEdit}>
                       Annulla
                     </button>
-                    <button className="btn btn-danger btn-sm ms-auto" onClick={() => handleDelete(b.bookingId)}>
+                    <button className="btn btn-danger ms-auto" onClick={() => handleDelete(b.bookingId)}>
                       Elimina
                     </button>
                   </div>
-                </>
+                </div>
               ) : (
-                <>
+                <div className="booking-info">
                   <p>
                     Dal {b.startDate} al {b.endDate}
                   </p>
-                  <div className="d-flex justi gap-2">
-                    <button className="btn btn-primary btn-sm" onClick={() => handleEditClick(b)}>
+                  <div className="buttons-row">
+                    <button className="btn btn-primary" onClick={() => handleEditClick(b)}>
                       Modifica
                     </button>
-                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(b.bookingId)}>
+                    <button className="btn btn-danger" onClick={() => handleDelete(b.bookingId)}>
                       Elimina
                     </button>
                   </div>
-                </>
+                </div>
               )}
-            </li>
-          ))
-        )}
-      </ul>
+            </div>
+          ))}
+        </div>
+      )}
 
-      <div className="text-center mb-4">
-        <Link to="/welcome" className="btn btn-warning mt-3">
+      <div className="back-home">
+        <Link to="/welcome" className="btn btn-warning">
           Torna alla Home
         </Link>
       </div>
