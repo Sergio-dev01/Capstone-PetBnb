@@ -36,7 +36,7 @@ function LandingPage() {
             to="/register"
             className="px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-500 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 text-decoration-none"
           >
-            Inizia ora
+            Registrati
           </Link>
 
           <Link
