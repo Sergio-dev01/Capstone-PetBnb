@@ -1,99 +1,198 @@
+/* ===== BACKGROUND E CONTAINER ===== */
 .locations-page {
   max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  margin: 3rem auto;
+  padding: 2rem 1rem;
+  background: linear-gradient(145deg, #f0f4ffcd 0%, #ffffffcd 50%, #ffe6f0d4 100%);
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* ===== TITLE ===== */
 .locations-title {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2rem;
+  font-size: 2.8rem;
+  font-weight: 800;
   color: #2c3e50;
-}
-
-.no-locations {
+  margin-bottom: 2rem;
   text-align: center;
-  font-size: 1.2rem;
-  color: #888;
 }
 
+/* ===== FILTRI ===== */
+.filters {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.filter-group:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.filter-icon {
+  margin-right: 8px;
+  color: #3498db;
+}
+
+.filter-input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  width: 180px;
+  background: transparent;
+}
+
+/* ===== GRID CARDS ===== */
 .locations-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+  width: 100%;
 }
 
 .location-card {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 25px;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
 }
 
 .location-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
 }
 
 .location-link {
-  text-decoration: none;
   color: inherit;
-  display: block;
-  height: 100%;
+  text-decoration: none;
+}
+
+/* ===== IMMAGINI ===== */
+.location-image {
+  position: relative;
+  overflow: hidden;
 }
 
 .location-image img {
   width: 100%;
-  height: 180px;
-  object-fit: contain;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
+.location-card:hover .location-image img {
+  transform: scale(1.05);
+}
+
+/* PET BADGE */
+.pet-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(46, 204, 113, 0.9);
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 25px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ===== CONTENT ===== */
 .location-content {
-  padding: 1rem;
-  box-shadow: inset 0 -1px 0 #269dffdc;
+  padding: 1rem 1.5rem;
 }
 
 .location-content h3 {
-  margin: 0 0 0.5rem;
-  font-size: 1.25rem;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
   color: #34495e;
-  font-weight: bold;
+  font-weight: 700;
 }
 
-.location-city {
+.location-city,
+.location-price {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 0.95rem;
-  color: #7f8c8d;
   margin-bottom: 0.5rem;
+}
+
+.location-city .icon {
+  color: #ff6f61;
+}
+
+.location-price .icon {
+  color: #27ae60;
 }
 
 .location-desc {
   font-size: 0.9rem;
   color: #555;
-  margin-bottom: 0.5rem;
+  min-height: 40px;
 }
 
-.location-price {
-  font-weight: bold;
-  color: #27ae60;
-}
-
-.back-home {
+/* ===== NO LOCATIONS ===== */
+.no-locations {
+  font-size: 1.2rem;
+  color: #888;
   text-align: center;
+  margin: 3rem 0;
+}
+
+/* ===== BACK BUTTON ===== */
+.back-home {
   margin-top: 3rem;
 }
 
 .btn-back {
-  display: inline-block;
   background-color: #3498db;
   color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
   text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-back:hover {
   background-color: #2980b9;
+  box-shadow: 0 5px 20px rgba(52, 152, 219, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .locations-title {
+    font-size: 2rem;
+  }
+  .filter-input {
+    width: 150px;
+  }
+}
+
+@media (max-width: 576px) {
+  .locations-title {
+    font-size: 1.8rem;
+  }
+  .filter-input {
+    width: 130px;
+  }
 }
