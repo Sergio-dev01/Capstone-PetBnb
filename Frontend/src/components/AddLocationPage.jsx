@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { FaPlus, FaArrowLeft } from "react-icons/fa";
+import "../css/HostLocationsPage.css";
 
 function AddLocationPage() {
   const [form, setForm] = useState({
@@ -33,21 +35,24 @@ function AddLocationPage() {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Aggiungi Location</h2>
-      <input name="nome" placeholder="Nome" className="form-control my-2" onChange={handleChange} />
-      <input name="indirizzo" placeholder="Indirizzo" className="form-control my-2" onChange={handleChange} />
-      <input name="citta" placeholder="Città" className="form-control my-2" onChange={handleChange} />
-      <textarea name="descrizione" placeholder="Descrizione" className="form-control my-2" onChange={handleChange} />
-      <input name="prezzoPerNotte" placeholder="Prezzo per notte" className="form-control my-2" type="number" onChange={handleChange} />
-      <div>
-        <button className="btn btn-success" onClick={handleSubmit}>
-          Crea
-        </button>
+    <div className="add-location-page">
+      <div className="location-card">
+        <h2 className="location-title">Aggiungi Nuova Location</h2>
 
-        <Link to="/welcome" className="btn btn-secondary mx-2">
-          Torna alla Welcome
-        </Link>
+        <input name="nome" placeholder="Nome" className="form-input" onChange={handleChange} />
+        <input name="indirizzo" placeholder="Indirizzo" className="form-input" onChange={handleChange} />
+        <input name="citta" placeholder="Città" className="form-input" onChange={handleChange} />
+        <textarea name="descrizione" placeholder="Descrizione" className="form-input textarea" onChange={handleChange} />
+        <input name="prezzoPerNotte" placeholder="Prezzo per notte" type="number" className="form-input" onChange={handleChange} />
+
+        <div className="form-buttons">
+          <button className="btn btn-success" onClick={handleSubmit}>
+            <FaPlus /> Crea
+          </button>
+          <Link to="/welcome" className="btn btn-secondary">
+            <FaArrowLeft /> Torna alla Welcome
+          </Link>
+        </div>
       </div>
     </div>
   );
