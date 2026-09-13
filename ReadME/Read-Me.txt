@@ -5,7 +5,7 @@ Il sistema gestisce registrazioni utenti, pubblicazione di location, prenotazion
 
 L’obiettivo principale è fornire una piattaforma sicura, scalabile e modulare per la gestione delle strutture pet-friendly, sia lato utente che host.
 
-🧱 Tecnologie Utilizzate
+Tecnologie Utilizzate
 Ambito	Tecnologie
 Backend	Java 17, Spring Boot 3
 Sicurezza	Spring Security, JWT (JSON Web Token)
@@ -14,7 +14,8 @@ Validazioni	Bean Validation (Jakarta), custom exception handling
 Testing (futuro)	JUnit, Mockito (non incluso attualmente)
 Gestione delle eccezioni	@ControllerAdvice, DTO per errori personalizzati
 Build tool	Maven
-🧩 Architettura del progetto
+
+-Architettura del progetto
 
 Modello a tre livelli: Controller → Service → Repository ✔️
 
@@ -26,13 +27,13 @@ Sicurezza: JWT Token verificati tramite un filtro (OncePerRequestFilter) custom 
 
 Validazioni: su ogni campo tramite annotazioni standard + messaggi personalizzati ✔️
 
-🚀 Roadmap dei rilasci
+- Roadmap dei rilasci
 🔹 v1 – Core funzionalità (completata)
 
 ✔️ Completamente funzionante
 ✔️ Implementata nella tua versione corrente
 
-📌 Funzionalità incluse:
+- Funzionalità incluse:
 
 Registrazione utente con ruolo (USER o HOST) ✔️
 
@@ -54,9 +55,9 @@ Gestione delle eccezioni centralizzata (custom exception + error DTO) ✔️
 
 🔹 v2 – Estensione UX/UI e dati utente (prossimo step consigliato)
 
-💡 Da implementare
+- Da implementare
 
-📌 Funzionalità previste:
+- Funzionalità previste:
 
 Espansione dei dettagli della location ✔️
 
@@ -69,9 +70,9 @@ Filtri di ricerca per location (città, prezzo)✔️
 🔹 v3 – Upload immagini e gestione avanzata host (parzialmente presente)
 
 ✔️ Parte delle funzionalità già presenti (es. endpoint host)
-💡 Upload immagini da implementare
+ Upload immagini da implementare
 
-📌 Funzionalità previste:
+- Funzionalità previste:
 
 Upload immagini per le strutture (via FileSystem o cloud: AWS S3, Cloudinary…)
 
@@ -81,9 +82,9 @@ Gestione multipla delle immagini per location
 
 🔹 v4 – Pagamenti e notifiche
 
-💡 Fase avanzata (opzionale)
+Fase avanzata (opzionale)
 
-📌 Funzionalità previste:
+- Funzionalità previste:
 
 Integrazione con Stripe o PayPal per prenotazioni reali
 
