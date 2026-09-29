@@ -1,1 +1,184 @@
 @import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design tokens — palette presa dal logo (zampa gialla, contorno
+   cacao, linguetta rossa) + l'azzurro della foto della landing.
+------------------------------------------------------------------- */
+@theme {
+  --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Figtree Variable", ui-sans-serif, sans-serif;
+
+  --color-cocoa: #1f0802;
+  --color-cocoa-soft: #6b5a52;
+  --color-sun: #ffc107;
+  --color-sun-deep: #f2ae00;
+  --color-sun-soft: #fff4cc;
+  --color-sky: #a9daf8;
+  --color-sky-soft: #e8f5fd;
+  --color-sky-deep: #1c6ea4;
+  --color-tongue: #ef4f2d;
+  --color-moss: #1f7a52;
+  --color-moss-soft: #e3f4ea;
+  --color-canvas: #fbfaf7;
+  --color-line: #ece7e2;
+
+  --shadow-soft: 0 1px 2px rgb(31 8 2 / 0.05), 0 12px 32px -18px rgb(31 8 2 / 0.28);
+  --shadow-lift: 0 2px 6px rgb(31 8 2 / 0.06), 0 28px 56px -24px rgb(31 8 2 / 0.4);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee var(--duration, 40s) linear infinite;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @keyframes shimmer {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: -100% 0;
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-cocoa);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-sun);
+    color: var(--color-cocoa);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cocoa);
+    outline-offset: 2px;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-shimmer {
+    animation: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   react-day-picker — calendario nei colori del brand
+------------------------------------------------------------------- */
+.rdp-petbnb {
+  --rdp-accent-color: var(--color-cocoa);
+  --rdp-accent-background-color: var(--color-sun-soft);
+  --rdp-day-height: 40px;
+  --rdp-day-width: 40px;
+  --rdp-day_button-height: 38px;
+  --rdp-day_button-width: 38px;
+  --rdp-day_button-border-radius: 999px;
+  --rdp-selected-border: 0;
+  --rdp-today-color: var(--color-tongue);
+  --rdp-range_start-color: #fff;
+  --rdp-range_end-color: #fff;
+  --rdp-range_middle-background-color: var(--color-sun-soft);
+  --rdp-range_middle-color: var(--color-cocoa);
+  --rdp-nav-height: 2.5rem;
+  --rdp-nav_button-height: 2.25rem;
+  --rdp-nav_button-width: 2.25rem;
+  --rdp-months-gap: 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+}
+
+.rdp-petbnb .rdp-caption_label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: capitalize;
+}
+
+.rdp-petbnb .rdp-weekday {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-cocoa-soft);
+  opacity: 1;
+}
+
+.rdp-petbnb .rdp-chevron {
+  fill: var(--color-cocoa);
+  width: 16px;
+  height: 16px;
+}
+
+.rdp-petbnb .rdp-button_previous,
+.rdp-petbnb .rdp-button_next {
+  border-radius: 999px;
+  transition: background-color 150ms;
+}
+.rdp-petbnb .rdp-button_previous:hover,
+.rdp-petbnb .rdp-button_next:hover {
+  background: rgb(31 8 2 / 0.06);
+}
+
+.rdp-petbnb .rdp-day_button {
+  font-weight: 500;
+  transition: background-color 150ms;
+}
+.rdp-petbnb .rdp-day:not(.rdp-disabled):not(.rdp-selected) .rdp-day_button:hover {
+  background: rgb(31 8 2 / 0.06);
+}
+
+.rdp-petbnb .rdp-selected .rdp-day_button {
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.rdp-petbnb .rdp-range_start .rdp-day_button,
+.rdp-petbnb .rdp-range_end .rdp-day_button {
+  background-color: var(--color-cocoa);
+  color: #fff;
+}
+
+.rdp-petbnb .rdp-today:not(.rdp-selected) .rdp-day_button {
+  font-weight: 700;
+}
+
+.rdp-petbnb .rdp-disabled {
+  opacity: 0.35;
+}

@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../css/HostLocationsPage.css";
+import { motion } from "motion/react";
+import { CircleAlert, Plus } from "lucide-react";
+import LocationCard, { LocationCardSkeleton } from "./LocationCard";
+import Button from "./ui/Button";
+import PageHeader from "./ui/PageHeader";
 
 function HostLocationsPage() {
   const [locations, setLocations] = useState([]);
@@ -26,42 +30,63 @@ function HostLocationsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="container mt-4">Caricamento...</div>;
-
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4">Le mie Location</h2>
+    <div className="mx-auto max-w-6xl px-4 pt-10 pb-8 sm:px-6 sm:pt-14">
+      <PageHeader
+        title="Le mie location"
+        description={
+          loading || errorMsg
+            ? "Gli annunci che hai pubblicato su PetBnb."
+            : locations.length === 0
+              ? "Non hai ancora creato nessuna location."
+              : `${locations.length} ${locations.length === 1 ? "annuncio pubblicato" : "annunci pubblicati"}.`
+        }
+        actions={
+          <Button to="/locations/add">
+            <Plus aria-hidden="true" /> Nuova location
+          </Button>
+        }
+      />
 
-      {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
-
-      {locations.length === 0 ? (
-        <div className="alert alert-info">Non hai ancora creato nessuna location.</div>
-      ) : (
-        <div className="location-grid">
-          {locations.map((loc) => (
-            <div key={loc.id} className="location-card">
-              <img src="/images/placeholder.jpg" alt={loc.nome} className="location-image" />
-              <div className="location-details">
-                <h5>{loc.nome}</h5>
-                <p className="text-muted">{loc.citta}</p>
-                <p className="location-description">{loc.descrizione}</p>
-                <p>
-                  <strong>€{loc.prezzoPerNotte}</strong> / notte
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+      {errorMsg && (
+        <p role="alert" className="mt-8 flex items-center gap-2 rounded-2xl bg-tongue/10 px-4 py-3 font-medium text-tongue">
+          <CircleAlert className="size-4 shrink-0" aria-hidden="true" /> {errorMsg}
+        </p>
       )}
 
-      <div className="text-center mt-4">
-        <Link to="/locations/add" className="btn btn-success me-2">
-          Aggiungi Nuova Location
-        </Link>
-        <Link to="/welcome" className="btn btn-secondary">
-          Torna alla Home
-        </Link>
-      </div>
+      <ul className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {loading
+          ? Array.from({ length: 3 }, (_, i) => (
+              <li key={i}>
+                <LocationCardSkeleton />
+              </li>
+            ))
+          : locations.map((loc, i) => (
+              <motion.li
+                key={loc.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: Math.min(i, 8) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <LocationCard location={loc} to={`/locations/${loc.id}`} />
+              </motion.li>
+            ))}
+
+        {!loading && !errorMsg && (
+          <li>
+            <Link
+              to="/locations/add"
+              className="group flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-cocoa/15 text-cocoa no-underline transition hover:border-cocoa/40 hover:bg-white"
+            >
+              <span className="grid size-14 place-items-center rounded-full bg-sun shadow-[inset_0_-3px_0_rgb(31_8_2/0.16)] transition-transform duration-300 group-hover:rotate-90">
+                <Plus className="size-6" aria-hidden="true" />
+              </span>
+              <span className="font-display text-lg font-bold">Aggiungi una location</span>
+              <span className="text-sm text-cocoa-soft">Ci vogliono pochi minuti</span>
+            </Link>
+          </li>
+        )}
+      </ul>
     </div>
   );
 }

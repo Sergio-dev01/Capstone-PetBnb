@@ -1,5 +1,10 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { KeyRound, Mail, PawPrint } from "lucide-react";
+import AuthLayout, { FormMessage } from "./AuthLayout";
+import Button from "./ui/Button";
+import { TextField } from "./ui/Field";
+import { AUTH_PHOTOS } from "../lib/images";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -64,93 +69,82 @@ function LoginPage() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin();
+  };
+
   const isDisabled = loading || !email || !password;
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 via-white to-pink-100"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.25),transparent_40%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(236,72,153,0.25),transparent_40%)]"></div>
-
-      {/* Card */}
-      <div className="relative w-full max-w-md backdrop-blur-xl bg-white/60 border border-white/40 shadow-2xl rounded-3xl p-10">
-        <h1 className="text-3xl font-extrabold text-center tracking-tight">
-          Benvenuto su <span className="bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">PetBnb 🐾</span>
-        </h1>
-
-        <p className="text-center text-gray-500 mt-2">Accedi per continuare</p>
-
-        <div className="mt-4 w-16 h-1 mx-auto rounded-full bg-gradient-to-r from-indigo-500 to-pink-500"></div>
-
-        {/* FORM */}
-        <div className="mt-8 space-y-4">
-          {/* EMAIL */}
+    <AuthLayout
+      title="Bentornato"
+      subtitle="Accedi per gestire viaggi e prenotazioni."
+      photo={AUTH_PHOTOS.login}
+      photoAlt="Bulldog francese con una felpa gialla"
+      photoBg="bg-sky"
+      aside={
+        <div className="flex gap-4">
+          <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-sun">
+            <PawPrint className="size-5" aria-hidden="true" />
+          </span>
           <div>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={`w-full px-4 py-3 rounded-xl border bg-white/70 backdrop-blur transition
-                focus:outline-none focus:ring-2
-                ${error ? "border-red-300 focus:ring-red-400" : "border-gray-200 focus:ring-indigo-400"}`}
-            />
+            <p className="font-display text-lg leading-snug font-bold">Viaggia senza pensieri</p>
+            <p className="mt-1 text-sm text-cocoa-soft">
+              Ogni location su PetBnb accetta animali: niente sorprese all'arrivo, per te e per il tuo amico.
+            </p>
           </div>
-
-          {/* PASSWORD */}
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={`w-full px-4 py-3 rounded-xl border bg-white/70 backdrop-blur transition
-                focus:outline-none focus:ring-2
-                ${error ? "border-red-300 focus:ring-red-400" : "border-gray-200 focus:ring-indigo-400"}`}
-            />
-          </div>
-
-          {/* ERROR MESSAGE */}
-          {error && <p className="text-sm text-red-500 text-center animate-pulse">{error}</p>}
-
-          {/* BUTTON */}
-          <button
-            onClick={handleLogin}
-            disabled={isDisabled}
-            className="w-full py-3 rounded-xl font-semibold text-white
-              bg-gradient-to-r from-indigo-600 to-pink-500
-              shadow-lg transition-all duration-300
-              hover:shadow-xl hover:scale-[1.02]
-              active:scale-[0.98]
-              disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? (
-              <span className="flex justify-center items-center gap-2">
-                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                Accesso...
-              </span>
-            ) : (
-              "Accedi"
-            )}
-          </button>
         </div>
-
-        {/* LINKS */}
-        <div className="mt-6 text-center text-sm text-gray-500">
-          <Link to="/forgot-password" className="hover:text-indigo-600">
-            Password dimenticata?
-          </Link>
-        </div>
-
-        <p className="mt-6 text-center text-sm text-gray-500">
+      }
+      footer={
+        <>
           Non hai un account?{" "}
-          <Link to="/register" className="font-semibold text-indigo-600 hover:text-pink-500">
+          <Link
+            to="/register"
+            className="font-semibold text-cocoa underline decoration-sun decoration-2 underline-offset-4 hover:decoration-cocoa"
+          >
             Registrati
           </Link>
-        </p>
-      </div>
-    </div>
+        </>
+      }
+    >
+      <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+        <TextField
+          label="Email"
+          type="email"
+          icon={Mail}
+          placeholder="nome@email.com"
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          aria-invalid={error ? true : undefined}
+        />
+
+        <div className="space-y-2">
+          <TextField
+            label="Password"
+            type="password"
+            icon={KeyRound}
+            placeholder="La tua password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            aria-invalid={error ? true : undefined}
+          />
+          <div className="text-right">
+            <Link to="/forgot-password" className="text-sm font-medium text-cocoa-soft no-underline hover:text-cocoa">
+              Password dimenticata?
+            </Link>
+          </div>
+        </div>
+
+        <FormMessage type="error">{error}</FormMessage>
+
+        <Button type="submit" size="lg" className="w-full" loading={loading} disabled={isDisabled}>
+          {loading ? "Accesso..." : "Accedi"}
+        </Button>
+      </form>
+    </AuthLayout>
   );
 }
 

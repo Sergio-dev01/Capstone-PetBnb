@@ -1,5 +1,17 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { motion } from "motion/react";
+import { Check, House, KeyRound, Luggage, Mail, UserRound } from "lucide-react";
+import AuthLayout, { FormMessage } from "./AuthLayout";
+import Button from "./ui/Button";
+import { TextField } from "./ui/Field";
+import { AUTH_PHOTOS } from "../lib/images";
+import { cn } from "../lib/utils";
+
+const ROLES = [
+  { value: "USER", title: "Viaggio con il mio pet", text: "Cerco e prenoto stay", Icon: Luggage },
+  { value: "HOST", title: "Ospito animali", text: "Pubblico la mia casa", Icon: House },
+];
 
 function RegisterPage() {
   const [form, setForm] = useState({
@@ -67,131 +79,119 @@ function RegisterPage() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleRegister();
+  };
+
   const isDisabled = loading || !form.username || !form.email || !form.password;
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 via-white to-pink-100"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.25),transparent_40%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(236,72,153,0.25),transparent_40%)]"></div>
-
-      {/* Card */}
-      <div className="relative w-full max-w-md backdrop-blur-xl bg-white/60 border border-white/40 shadow-2xl rounded-3xl p-10">
-        {/* Title */}
-        <h1 className="text-3xl font-extrabold text-center tracking-tight">
-          Registrati a <span className="bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">PetBnb 🐾</span>
-        </h1>
-
-        <p className="text-center text-gray-500 mt-2">Crea il tuo account</p>
-
-        <div className="mt-4 w-16 h-1 mx-auto rounded-full bg-gradient-to-r from-indigo-500 to-pink-500"></div>
-
-        {/* ===== FORM ===== */}
-        <div className="mt-10">
-          <div className="space-y-6">
-            {/* USERNAME */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-600">Username</label>
-              <input
-                name="username"
-                placeholder="Il tuo username"
-                value={form.username}
-                onChange={handleChange}
-                className={`w-full px-4 py-3 rounded-xl border bg-white/70 backdrop-blur transition
-                  focus:outline-none focus:ring-2
-                  ${error ? "border-red-300 focus:ring-red-400" : "border-gray-200 focus:ring-indigo-400"}`}
-              />
-            </div>
-
-            {/* EMAIL */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-600">Email</label>
-              <input
-                name="email"
-                type="email"
-                placeholder="nome@email.com"
-                value={form.email}
-                onChange={handleChange}
-                className={`w-full px-4 py-3 rounded-xl border bg-white/70 backdrop-blur transition
-                  focus:outline-none focus:ring-2
-                  ${error ? "border-red-300 focus:ring-red-400" : "border-gray-200 focus:ring-indigo-400"}`}
-              />
-            </div>
-
-            {/* PASSWORD */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-600">Password</label>
-              <input
-                name="password"
-                type="password"
-                placeholder="Almeno 6 caratteri"
-                value={form.password}
-                onChange={handleChange}
-                className={`w-full px-4 py-3 rounded-xl border bg-white/70 backdrop-blur transition
-                  focus:outline-none focus:ring-2
-                  ${error ? "border-red-300 focus:ring-red-400" : "border-gray-200 focus:ring-indigo-400"}`}
-              />
-            </div>
-
-            {/* ROLE */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-600">Sei un Host o un User?</label>
-              <select
-                name="role"
-                value={form.role}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/70 backdrop-blur focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
-              >
-                <option value="USER">User</option>
-                <option value="HOST">Host</option>
-              </select>
-            </div>
-
-            {/* ERROR */}
-            {error && <p className="text-sm text-red-500 text-center animate-pulse">{error}</p>}
-
-            {/* SUCCESS */}
-            {success && <p className="text-sm text-green-600 text-center">{success}</p>}
-
-            {/* BUTTON */}
-            <button
-              onClick={handleRegister}
-              disabled={isDisabled}
-              className="w-full py-3 rounded-xl font-semibold text-white
-                bg-gradient-to-r from-indigo-600 to-pink-500
-                shadow-lg transition-all duration-300
-                hover:shadow-xl hover:scale-[1.02]
-                active:scale-[0.98]
-                disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <span className="flex justify-center items-center gap-2">
-                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                  Creazione account...
-                </span>
-              ) : (
-                "Registrati"
-              )}
-            </button>
-          </div>
+    <AuthLayout
+      title="Crea il tuo account"
+      subtitle="Bastano pochi dati e sei dei nostri."
+      photo={AUTH_PHOTOS.register}
+      photoAlt="Carlino con un maglione su sfondo giallo"
+      photoBg="bg-sun"
+      aside={
+        <div>
+          <p className="font-display text-lg leading-snug font-bold">Viaggiatore o host?</p>
+          <p className="mt-1 text-sm text-cocoa-soft">
+            Da viaggiatore prenoti stay pet-friendly in tutta Italia. Da host pubblichi la tua casa e gestisci le
+            prenotazioni ricevute.
+          </p>
         </div>
-
-        {/* LINKS */}
-        <p className="mt-6 text-center text-sm text-gray-500">
+      }
+      footer={
+        <>
           Hai già un account?{" "}
-          <Link to="/login" className="font-semibold text-indigo-600 hover:text-pink-500 transition">
+          <Link
+            to="/login"
+            className="font-semibold text-cocoa underline decoration-sun decoration-2 underline-offset-4 hover:decoration-cocoa"
+          >
             Accedi
           </Link>
-        </p>
+        </>
+      }
+    >
+      <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+        <fieldset>
+          <legend className="text-sm font-semibold">Come userai PetBnb?</legend>
+          <div className="mt-2 grid grid-cols-2 gap-3">
+            {ROLES.map(({ value, title, text, Icon }) => {
+              const checked = form.role === value;
+              return (
+                <label
+                  key={value}
+                  className={cn(
+                    "relative cursor-pointer rounded-2xl p-4 ring-inset transition-[background-color,box-shadow] has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-cocoa",
+                    checked ? "bg-sun-soft ring-2 ring-cocoa" : "bg-white ring-1 ring-cocoa/12 hover:ring-cocoa/25",
+                  )}
+                >
+                  <input
+                    type="radio"
+                    name="role"
+                    value={value}
+                    checked={checked}
+                    onChange={handleChange}
+                    className="sr-only"
+                  />
+                  <Icon className="size-5" aria-hidden="true" />
+                  <span className="mt-3 block text-sm leading-tight font-bold">{title}</span>
+                  <span className="mt-0.5 block text-xs text-cocoa-soft">{text}</span>
+                  {checked && (
+                    <motion.span
+                      layoutId="role-check"
+                      transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                      className="absolute top-3 right-3 grid size-5 place-items-center rounded-full bg-cocoa text-white"
+                    >
+                      <Check className="size-3" strokeWidth={3} aria-hidden="true" />
+                    </motion.span>
+                  )}
+                </label>
+              );
+            })}
+          </div>
+        </fieldset>
 
-        <div className="text-center mt-3">
-          <button onClick={() => navigate("/")} className="text-sm text-gray-400 hover:text-gray-600 transition">
-            ← Torna alla Welcome Page
-          </button>
-        </div>
-      </div>
-    </div>
+        <TextField
+          label="Username"
+          name="username"
+          icon={UserRound}
+          placeholder="Il tuo username"
+          autoComplete="username"
+          value={form.username}
+          onChange={handleChange}
+        />
+        <TextField
+          label="Email"
+          name="email"
+          type="email"
+          icon={Mail}
+          placeholder="nome@email.com"
+          autoComplete="email"
+          value={form.email}
+          onChange={handleChange}
+        />
+        <TextField
+          label="Password"
+          name="password"
+          type="password"
+          icon={KeyRound}
+          placeholder="Almeno 6 caratteri"
+          autoComplete="new-password"
+          value={form.password}
+          onChange={handleChange}
+        />
+
+        <FormMessage type="error">{error}</FormMessage>
+        <FormMessage type="success">{success}</FormMessage>
+
+        <Button type="submit" size="lg" className="w-full" loading={loading} disabled={isDisabled}>
+          {loading ? "Creazione account..." : "Crea account"}
+        </Button>
+      </form>
+    </AuthLayout>
   );
 }
 

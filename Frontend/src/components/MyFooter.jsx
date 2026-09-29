@@ -1,72 +1,90 @@
-// src/components/Footer.js
-import React from "react";
 import { Link } from "react-router-dom";
-import "../css/MyFooter.css";
-import { FaFacebookF, FaInstagram, FaTwitter, FaGithub, FaPaw } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaXTwitter, FaGithub } from "react-icons/fa6";
+import Logo from "./ui/Logo";
+
+const USEFUL_LINKS = [
+  { to: "/about", label: "Chi siamo" },
+  { to: "/contact", label: "Contattaci" },
+  { to: "/privacy", label: "Privacy Policy" },
+  { to: "/faq", label: "FAQ" },
+];
+
+const EXPLORE_LINKS = [
+  { to: "/locations", label: "Location pet-friendly" },
+  { to: "/register", label: "Diventa host" },
+  { to: "/login", label: "Accedi" },
+];
+
+const SOCIALS = [
+  { href: "https://facebook.com", label: "Facebook", Icon: FaFacebookF },
+  { href: "https://instagram.com", label: "Instagram", Icon: FaInstagram },
+  { href: "https://twitter.com", label: "X (Twitter)", Icon: FaXTwitter },
+  { href: "https://github.com", label: "GitHub", Icon: FaGithub },
+];
+
+function FooterColumn({ title, links }) {
+  return (
+    <div>
+      <h2 className="text-sm font-semibold text-white">{title}</h2>
+      <ul className="mt-4 space-y-3">
+        {links.map((link) => (
+          <li key={link.to}>
+            <Link to={link.to} className="text-white/60 no-underline transition-colors hover:text-sun">
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 function MyFooter() {
   return (
-    <footer className="footer bg-dark text-light ">
-      <div className="container">
-        <div className="row gy-4">
-          <div className="col-md-4 text-center">
-            <div className="d-flex align-items-center mb-3 justify-content-center">
-              <span>
-                <img src="./public/Petbnb.png" alt="" />
-              </span>
-              <span className="footer-brand">PetBnB</span>
-            </div>
-            <p className="footer-description">Viaggia senza pensieri insieme al tuo fedele amico a quattro zampe. 🐾</p>
+    <footer className="relative mt-24 overflow-hidden bg-cocoa text-white">
+      <div className="mx-auto max-w-6xl px-6 pt-16 pb-8">
+        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_auto]">
+          <div className="max-w-sm">
+            <Logo light />
+            <p className="mt-5 text-lg leading-relaxed text-white/70">
+              Viaggia senza pensieri insieme al tuo fedele amico a quattro zampe.
+            </p>
           </div>
 
-          <div className="col-md-4 text-center ">
-            <h6 className="footer-title">Link Utili</h6>
-            <ul className="list-unstyled footer-links">
-              <li>
-                <Link to="/about" className="footer-link">
-                  Chi siamo
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="footer-link">
-                  Contattaci
-                </Link>
-              </li>
-              <li>
-                <Link to="/privacy" className="footer-link">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/faq" className="footer-link">
-                  FAQ
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <FooterColumn title="Link utili" links={USEFUL_LINKS} />
+          <FooterColumn title="Esplora" links={EXPLORE_LINKS} />
 
-          <div className="col-md-4 text-center ">
-            <h6 className="footer-title">Seguici</h6>
-            <div className="d-flex gap-3 justify-content-center">
-              <a href="https://facebook.com" className="footer-icon" aria-label="Facebook">
-                <FaFacebookF />
-              </a>
-              <a href="https://instagram.com" className="footer-icon" aria-label="Instagram">
-                <FaInstagram />
-              </a>
-              <a href="https://twitter.com" className="footer-icon" aria-label="Twitter">
-                <FaTwitter />
-              </a>
-              <a href="https://github.com" className="footer-icon" aria-label="GitHub">
-                <FaGithub />
-              </a>
+          <div>
+            <h2 className="text-sm font-semibold text-white">Seguici</h2>
+            <div className="mt-4 flex gap-2">
+              {SOCIALS.map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="grid size-10 place-items-center rounded-full bg-white/[0.08] text-white/80 transition hover:-translate-y-0.5 hover:bg-sun hover:text-cocoa"
+                >
+                  <Icon className="size-4" />
+                </a>
+              ))}
             </div>
           </div>
         </div>
 
-        <hr className="footer-divider mt-5 mb-3" />
-        <div className="text-center small text-muted">© {new Date().getFullYear()} PetBnB. Tutti i diritti riservati.</div>
+        <div className="mt-14 flex flex-col gap-2 border-t border-white/10 pt-6 text-sm text-white/45 sm:flex-row sm:justify-between">
+          <p>© {new Date().getFullYear()} PetBnb. Tutti i diritti riservati.</p>
+          <p>Fatto con cura per chi viaggia con un animale.</p>
+        </div>
       </div>
+
+      <p
+        aria-hidden="true"
+        className="pointer-events-none -mb-[0.24em] text-center font-display text-[21vw] leading-none font-extrabold tracking-[-0.06em] text-white/[0.05] select-none"
+      >
+        PetBnb
+      </p>
     </footer>
   );
 }
